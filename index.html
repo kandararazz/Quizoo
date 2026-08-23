@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quizoo - Kids Puzzle Game</title>
-  <meta name="description" content="Solve fun Math and Letter puzzles, raise pet dragons and buddies, collect Power Crystals, and unlock the Ancient Portal! Created by Raza.">
+  <title>Quizoo: Pet Puzzle Quest</title>
+  <meta name="description" content="A fun kids puzzle game with personalized pet companions, Math and Letter quests, voice audio, and diamond rewards!">
 
   <link rel="icon" type="image/png" href="logo.png">
+  
   <!-- Google Fonts: Fredoka & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,19 +30,213 @@
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <!-- Supabase JS Client CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Custom Styles -->
+  <style>
+    /* Diamond Slot Styling */
+    .crystal-slot {
+      background: #e2e8f0;
+      border: 2px dashed #94a3b8;
+      border-radius: 12px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      opacity: 0.3;
+      filter: grayscale(100%);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
 
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    .crystal-slot.collected {
+      background: linear-gradient(135deg, #a5f3fc 0%, #38bdf8 50%, #818cf8 100%);
+      border: 2px solid #0284c7;
+      opacity: 1;
+      filter: grayscale(0%);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.7);
+      animation: crystalBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes crystalBounce {
+      0% { transform: scale(0.3) rotate(-25deg); opacity: 0; }
+      60% { transform: scale(1.3) rotate(10deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* Scramble / Visual Box */
+    .scramble-box {
+      background: #ffffff;
+      border: 3px solid #6366f1;
+      border-radius: 14px;
+      padding: 8px 18px;
+      font-size: 2.1rem;
+      color: #4338ca;
+      font-weight: 800;
+      letter-spacing: 3px;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+
+    /* Answer Choice Buttons */
+    .choice-btn {
+      background-color: #ffffff;
+      border: 3px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 5px 0 #cbd5e1, 0 8px 15px rgba(0,0,0,0.05);
+      transition: all 0.15s ease;
+    }
+
+    .choice-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #cbd5e1, 0 10px 20px rgba(0,0,0,0.1);
+      background-color: #f8fafc;
+    }
+
+    .choice-btn:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #cbd5e1;
+    }
+
+    .choice-btn.correct-anim {
+      background-color: #d1fae5 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
+      box-shadow: 0 5px 0 #059669 !important;
+      animation: popCorrect 0.5s ease;
+    }
+
+    .choice-btn.wrong-anim {
+      background-color: #fee2e2 !important;
+      border-color: #ef4444 !important;
+      color: #991b1b !important;
+      box-shadow: 0 5px 0 #dc2626 !important;
+    }
+
+    @keyframes popCorrect {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .animate-pop {
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes floatUpFade {
+      0% { transform: translateY(0) scale(0.8); opacity: 0; }
+      30% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+      100% { transform: translateY(-30px) scale(1); opacity: 0; }
+    }
+
+    .toast-animate {
+      animation: floatUpFade 1.2s ease-out forwards;
+    }
+
+    /* Pet Jump Animation */
+    @keyframes petJump {
+      0% { transform: scale(1) translateY(0); }
+      25% { transform: scale(1.25, 0.8) translateY(0); }
+      50% { transform: scale(0.9, 1.25) translateY(-28px) rotate(-10deg); }
+      75% { transform: scale(1.1, 0.95) translateY(-12px) rotate(8deg); }
+      100% { transform: scale(1) translateY(0) rotate(0deg); }
+    }
+
+    .pet-jump-anim {
+      animation: petJump 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+
+    /* Pet Wobble Animation */
+    @keyframes petWobble {
+      0% { transform: translateX(0) rotate(0deg); }
+      15% { transform: translateX(-12px) rotate(-15deg); }
+      30% { transform: translateX(12px) rotate(15deg); }
+      45% { transform: translateX(-8px) rotate(-10deg); }
+      60% { transform: translateX(8px) rotate(10deg); }
+      75% { transform: translateX(-4px) rotate(-5deg); }
+      100% { transform: translateX(0) rotate(0deg); }
+    }
+
+    .pet-wobble-anim {
+      animation: petWobble 0.6s ease-in-out !important;
+    }
+
+    /* Idle Breathing / Bobbing Animation */
+    @keyframes petIdleBob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    .pet-idle-bob {
+      animation: petIdleBob 3s ease-in-out infinite;
+    }
+
+    /* Floating Speech Bubble Tail */
+    .speech-bubble-floating {
+      position: relative;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .speech-bubble-floating::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 28px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid #ffffff;
+    }
+
+    /* Pet Selection Card */
+    .pet-select-card {
+      border: 3px solid #e2e8f0;
+      border-radius: 20px;
+      background-color: #ffffff;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .pet-select-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      border-color: #818cf8;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+    }
+
+    .pet-select-card.selected-pet {
+      border-color: #eab308 !important;
+      background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%) !important;
+      box-shadow: 0 0 20px rgba(234, 179, 8, 0.6) !important;
+    }
+
+    /* Category Buttons */
+    .category-option-btn.selected-category {
+      outline: 3px solid #f59e0b;
+      outline-offset: 2px;
+      transform: scale(1.03);
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 min-h-screen text-slate-800 font-sans relative overflow-x-hidden p-3 sm:p-6 flex items-center justify-center pb-24 sm:pb-6">
+<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-purple-950 min-h-screen text-slate-800 font-sans relative overflow-x-hidden p-3 sm:p-6 flex items-center justify-center pb-28 sm:pb-6">
 
-  <!-- Floating Background Orbs -->
+  <!-- Background Orbs -->
   <div class="fixed top-8 left-8 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
   <div class="fixed bottom-8 right-8 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
 
-  <!-- App Wrapper -->
+  <!-- Main App Wrapper -->
   <div class="w-full max-w-2xl relative z-10 flex flex-col gap-4">
 
     <!-- Top Header Bar -->
@@ -52,7 +247,7 @@
           <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-wide drop-shadow">
             Quizoo
           </h1>
-          <p class="text-xs text-purple-200 font-medium">Created by Raza ✨</p>
+          <p class="text-xs text-purple-200 font-medium">Pet Puzzle Quest ✨</p>
         </div>
       </div>
 
@@ -69,39 +264,43 @@
           </span>
         </div>
 
-        <!-- Sound Toggle Button -->
+        <!-- Sound & Voice Toggle -->
         <button id="sound-btn" class="bg-gradient-to-b from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold text-xs sm:text-sm px-3.5 py-1.5 rounded-2xl shadow-[0_4px_0_#c2410c] active:shadow-[0_2px_0_#c2410c] active:translate-y-0.5 transition flex items-center gap-1.5 cursor-pointer">
           <span id="sound-icon">🔊</span> <span id="sound-text">Sound ON</span>
         </button>
       </div>
     </header>
 
-    <!-- Category Banner & Change Settings Button -->
+    <!-- Player & Quest Status Bar -->
     <section class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-3 px-4 flex flex-wrap items-center justify-between gap-2 text-white">
-      <div class="flex items-center gap-2">
-        <span class="text-xs text-purple-200 font-bold uppercase tracking-wider">Mode:</span>
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-xs text-purple-200 font-bold uppercase tracking-wider">Player:</span>
+        <span id="player-name-badge" class="bg-amber-400 text-amber-950 font-black text-xs px-2.5 py-1 rounded-xl shadow">
+          Raza
+        </span>
+        <span class="text-xs text-purple-200 font-bold uppercase tracking-wider ml-1">Quest:</span>
         <span id="active-category-badge" class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-extrabold text-xs px-3 py-1 rounded-xl shadow">
-          🎲 Mixed Adventure
+          🔢 Math Quest
         </span>
       </div>
 
       <button id="change-category-btn" class="bg-white/20 hover:bg-white/30 text-white font-bold text-xs px-3.5 py-1.5 rounded-xl transition flex items-center gap-1.5 cursor-pointer">
-        ⚙️ Change Pet & Category
+        ⚙️ Setup & Companion
       </button>
     </section>
 
-    <!-- Power Crystal Progress Bar -->
+    <!-- Glowing Diamond Progress Bar -->
     <section class="bg-white/95 rounded-3xl p-4 sm:p-5 shadow-2xl border-2 border-indigo-200 flex flex-col gap-3">
       <div class="flex items-center justify-between">
         <span class="text-lg sm:text-xl font-extrabold text-indigo-950 flex items-center gap-2">
-          💎 Power Crystals:
+          💎 Round Diamonds:
         </span>
         <div class="bg-cyan-50 border-2 border-cyan-300 text-cyan-900 font-extrabold px-3.5 py-0.5 rounded-xl text-base">
           <span id="crystal-count">0 / 8</span>
         </div>
       </div>
 
-      <!-- 8 Power Crystal Slots -->
+      <!-- 8 Diamond Slots -->
       <div class="grid grid-cols-8 gap-1.5 sm:gap-2" id="crystal-slots">
         <div class="crystal-slot" data-slot="1">💎</div>
         <div class="crystal-slot" data-slot="2">💎</div>
@@ -114,7 +313,7 @@
       </div>
     </section>
 
-    <!-- Kid Lifelines Bar -->
+    <!-- Lifelines Bar -->
     <section class="bg-gradient-to-r from-indigo-950/80 via-purple-950/80 to-pink-950/80 border border-purple-400/30 rounded-2xl p-2.5 px-4 shadow-lg flex flex-wrap items-center justify-around gap-2 text-white">
       <span class="text-xs font-bold text-purple-300 uppercase tracking-wider">Lifelines:</span>
 
@@ -125,12 +324,12 @@
 
       <!-- Lightbulb Clue -->
       <button id="hint-btn" class="bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-amber-950 font-bold text-xs sm:text-sm px-3 py-1.5 rounded-xl shadow-[0_3px_0_#b45309] active:translate-y-0.5 active:shadow-none transition flex items-center gap-1.5 cursor-pointer">
-        <span>💡</span> Clue
+        <span>💡</span> Lightbulb Hint
       </button>
 
-      <!-- Read Aloud -->
+      <!-- Read Question -->
       <button id="read-aloud-btn" class="bg-gradient-to-b from-cyan-400 to-cyan-600 hover:from-cyan-300 hover:to-cyan-500 text-cyan-950 font-bold text-xs sm:text-sm px-3 py-1.5 rounded-xl shadow-[0_3px_0_#0284c7] active:translate-y-0.5 active:shadow-none transition flex items-center gap-1.5 cursor-pointer">
-        <span>🗣️</span> Read Aloud
+        <span>🗣️</span> Read Question
       </button>
     </section>
 
@@ -157,102 +356,100 @@
       </div>
     </main>
 
-
     <!-- Footer Branding -->
     <footer class="text-center text-slate-400 text-xs font-medium py-1">
-      Quizoo • Created by Raza ✨
+      Quizoo: Pet Puzzle Quest • Created by Raza ✨
     </footer>
 
   </div>
 
-  <!-- FLOATING ANIMATED VIRTUAL SIDEKICK PET WIDGET (Bottom-Right) -->
+  <!-- FLOATING ANIMATED VIRTUAL PET WIDGET (Bottom-Right) -->
   <div id="floating-pet-widget" class="fixed bottom-4 right-4 z-40 flex flex-col items-end pointer-events-auto transition-all duration-300">
     
     <!-- Floating Cartoon Speech Bubble -->
-    <div id="sidekick-speech-bubble" class="speech-bubble-floating bg-white text-slate-900 border-2 border-indigo-400 font-extrabold px-3.5 py-2 rounded-2xl shadow-2xl text-xs sm:text-sm animate-pop mb-2.5 max-w-[210px] text-center select-none">
-      Let's win crystals! 💎
+    <div id="sidekick-speech-bubble" class="speech-bubble-floating bg-white text-slate-900 border-2 border-indigo-400 font-extrabold px-3.5 py-2 rounded-2xl shadow-2xl text-xs sm:text-sm animate-pop mb-2.5 max-w-[220px] text-center select-none">
+      Let me speak to you, Raza! 🐾
     </div>
 
     <!-- Sidekick Pet Card with Name Tag -->
     <div id="sidekick-pet-card" class="bg-gradient-to-b from-indigo-900/90 to-purple-950/90 border-2 border-amber-300/60 backdrop-blur-md rounded-2xl p-2.5 shadow-2xl flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform group">
       <!-- Animated Idle Bobbing Pet Avatar -->
       <div id="sidekick-pet-avatar" class="text-4xl sm:text-5xl filter drop-shadow pet-idle-bob inline-block transition-transform">
-        🐉
+        🦊
       </div>
       
       <!-- Small Name Tag Underneath -->
       <span id="sidekick-pet-name" class="bg-amber-400 text-amber-950 text-[10px] sm:text-xs font-black px-2.5 py-0.5 rounded-full shadow tracking-wide">
-        Sparky
+        Rusty
       </span>
     </div>
 
   </div>
 
-  <!-- Start Screen & Pet Buddy Selection Modal -->
+  <!-- Setup Screen & Pet Companion Selection Modal -->
   <div id="category-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-    <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full text-center shadow-2xl border-4 border-indigo-300 flex flex-col items-center gap-5 animate-pop my-auto">
+    <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full text-center shadow-2xl border-4 border-indigo-300 flex flex-col items-center gap-4 animate-pop my-auto">
       
       <div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Choose Your Pet Buddy! 🐾</h2>
-        <p class="text-xs sm:text-sm text-slate-600 font-medium mt-1">Pick your companion & quiz mode to start:</p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Welcome to Quizoo! 🐾</h2>
+        <p class="text-xs sm:text-sm text-slate-600 font-medium mt-1">Enter your name and pick your pet companion:</p>
       </div>
 
-      <!-- 6 Pet Selection Grid -->
-      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 w-full" id="pet-selection-grid">
-        <!-- 1. Sparky Dragon -->
-        <div class="pet-select-card selected-pet p-2.5 sm:p-3 flex flex-col items-center gap-1" data-pet-id="dragon" data-pet-name="Sparky the Dragon" data-pet-icon="🐉">
-          <span class="text-3xl sm:text-4xl">🐉</span>
-          <span class="text-xs font-extrabold text-slate-800">Sparky</span>
-        </div>
+      <!-- Player Name Input Box -->
+      <div class="w-full flex flex-col items-start gap-1">
+        <label for="player-name-input" class="text-xs font-bold text-slate-700 uppercase tracking-wider">Your Name:</label>
+        <input id="player-name-input" type="text" placeholder="Enter your name (e.g. Raza)" value="Raza" class="w-full bg-slate-100 border-2 border-indigo-300 rounded-2xl px-4 py-2.5 text-base font-extrabold text-slate-800 focus:outline-none focus:border-indigo-600 shadow-inner">
+      </div>
 
-        <!-- 2. Rusty Fox -->
-        <div class="pet-select-card p-2.5 sm:p-3 flex flex-col items-center gap-1" data-pet-id="fox" data-pet-name="Rusty the Fox" data-pet-icon="🦊">
-          <span class="text-3xl sm:text-4xl">🦊</span>
-          <span class="text-xs font-extrabold text-slate-800">Rusty</span>
-        </div>
+      <!-- 4 Core Pet Selection Grid -->
+      <div class="w-full flex flex-col gap-1.5">
+        <p class="text-xs font-bold text-slate-700 uppercase tracking-wider text-left">Choose Your Pet Companion:</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 w-full" id="pet-selection-grid">
+          
+          <!-- 1. Rusty Fox -->
+          <div class="pet-select-card selected-pet p-2.5 flex flex-col items-center gap-1" data-pet-id="fox" data-pet-name="Rusty the Fox" data-pet-icon="🦊">
+            <span class="text-3xl sm:text-4xl">🦊</span>
+            <span class="text-xs font-extrabold text-slate-800">Rusty</span>
+          </div>
 
-        <!-- 3. Luna Cat -->
-        <div class="pet-select-card p-2.5 sm:p-3 flex flex-col items-center gap-1" data-pet-id="cat" data-pet-name="Luna the Cosmic Cat" data-pet-icon="🐱">
-          <span class="text-3xl sm:text-4xl">🐱</span>
-          <span class="text-xs font-extrabold text-slate-800">Luna</span>
-        </div>
+          <!-- 2. Sparky Dragon -->
+          <div class="pet-select-card p-2.5 flex flex-col items-center gap-1" data-pet-id="dragon" data-pet-name="Sparky the Dragon" data-pet-icon="🐉">
+            <span class="text-3xl sm:text-4xl">🐉</span>
+            <span class="text-xs font-extrabold text-slate-800">Sparky</span>
+          </div>
 
-        <!-- 4. Buster Pup -->
-        <div class="pet-select-card p-2.5 sm:p-3 flex flex-col items-center gap-1" data-pet-id="dog" data-pet-name="Buster the Space Pup" data-pet-icon="🐶">
-          <span class="text-3xl sm:text-4xl">🐶</span>
-          <span class="text-xs font-extrabold text-slate-800">Buster</span>
-        </div>
+          <!-- 3. Luna Cat -->
+          <div class="pet-select-card p-2.5 flex flex-col items-center gap-1" data-pet-id="cat" data-pet-name="Luna the Cat" data-pet-icon="🐱">
+            <span class="text-3xl sm:text-4xl">🐱</span>
+            <span class="text-xs font-extrabold text-slate-800">Luna</span>
+          </div>
 
-        <!-- 5. Pandy Panda -->
-        <div class="pet-select-card p-2.5 sm:p-3 flex flex-col items-center gap-1" data-pet-id="panda" data-pet-name="Pandy the Panda" data-pet-icon="🐼">
-          <span class="text-3xl sm:text-4xl">🐼</span>
-          <span class="text-xs font-extrabold text-slate-800">Pandy</span>
-        </div>
+          <!-- 4. Buster Pup -->
+          <div class="pet-select-card p-2.5 flex flex-col items-center gap-1" data-pet-id="dog" data-pet-name="Buster the Dog" data-pet-icon="🐶">
+            <span class="text-3xl sm:text-4xl">🐶</span>
+            <span class="text-xs font-extrabold text-slate-800">Buster</span>
+          </div>
 
-        <!-- 6. Beep Bot -->
-        <div class="pet-select-card p-2.5 sm:p-3 flex flex-col items-center gap-1" data-pet-id="bot" data-pet-name="Beep the Bot" data-pet-icon="🤖">
-          <span class="text-3xl sm:text-4xl">🤖</span>
-          <span class="text-xs font-extrabold text-slate-800">Beep</span>
         </div>
       </div>
 
-      <!-- Quiz Category Options -->
-      <div class="w-full flex flex-col gap-2 border-t border-slate-200 pt-4">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider text-left">Select Category:</p>
+      <!-- Quest Selection Options -->
+      <div class="w-full flex flex-col gap-2 border-t border-slate-200 pt-3">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider text-left">Select Quest Mode:</p>
         <div class="grid grid-cols-3 gap-2 w-full">
-          <button class="category-option-btn bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-extrabold text-xs sm:text-sm py-2.5 px-2 rounded-xl shadow active:scale-95 transition flex flex-col items-center gap-1 cursor-pointer" data-category="math">
+          <button class="category-option-btn selected-category bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-extrabold text-xs sm:text-sm py-2.5 px-2 rounded-xl shadow active:scale-95 transition flex flex-col items-center gap-1 cursor-pointer" data-category="math">
             <span class="text-xl">🔢</span>
-            <span>Math</span>
+            <span>Math Quest</span>
           </button>
 
           <button class="category-option-btn bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-extrabold text-xs sm:text-sm py-2.5 px-2 rounded-xl shadow active:scale-95 transition flex flex-col items-center gap-1 cursor-pointer" data-category="letter">
             <span class="text-xl">🔤</span>
-            <span>Letters</span>
+            <span>Letter Quest</span>
           </button>
 
           <button class="category-option-btn bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-extrabold text-xs sm:text-sm py-2.5 px-2 rounded-xl shadow active:scale-95 transition flex flex-col items-center gap-1 cursor-pointer" data-category="mixed">
             <span class="text-xl">🎲</span>
-            <span>Mixed</span>
+            <span>Mixed Quest</span>
           </button>
         </div>
       </div>
@@ -265,39 +462,39 @@
     </div>
   </div>
 
-  <!-- Friendly Hint Modal Overlay -->
+  <!-- Lightbulb Hint Modal Overlay -->
   <div id="hint-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl p-6 max-w-md w-full text-center shadow-2xl border-4 border-amber-300 flex flex-col items-center gap-4 animate-pop">
       <div class="text-5xl bg-amber-100 border-4 border-amber-400 w-20 h-20 rounded-full flex items-center justify-center -mt-14 shadow-lg">
-        🦉
+        💡
       </div>
-      <h3 class="text-2xl font-extrabold text-amber-900">Helper Owl's Clue! 💡</h3>
+      <h3 class="text-2xl font-extrabold text-amber-900">Lightbulb Hint! 💡</h3>
       <div id="hint-text-box" class="bg-amber-50 border-2 border-dashed border-amber-300 rounded-2xl p-4 text-amber-900 font-bold text-base w-full leading-relaxed">
-        <!-- Clue text -->
+        <!-- Hint text -->
       </div>
       <button id="try-again-btn" class="bg-gradient-to-b from-emerald-500 to-emerald-700 hover:from-emerald-400 hover:to-emerald-600 text-white font-extrabold text-lg px-8 py-3 rounded-2xl shadow-[0_5px_0_#047857] active:translate-y-0.5 active:shadow-none w-full transition cursor-pointer">
-        Got It! Let's Try 🔄
+        Got It! Let's Solve 🔄
       </button>
     </div>
   </div>
 
-  <!-- Ancient Portal Victory Modal Overlay -->
+  <!-- Victory Round Complete Modal -->
   <div id="win-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-gradient-to-b from-slate-900 via-indigo-950 to-purple-950 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl border-4 border-amber-400 flex flex-col items-center gap-4 text-white animate-pop relative overflow-hidden">
       
       <!-- Glowing Portal FX -->
       <div class="relative w-32 h-32 flex items-center justify-center my-1">
         <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 rounded-full animate-spin blur-md opacity-80"></div>
-        <div class="relative z-10 text-5xl animate-bounce">
-          🐉 🌌
+        <div class="relative z-10 text-5xl animate-bounce" id="win-modal-pet-avatar">
+          🦊 🎉
         </div>
       </div>
 
-      <h2 class="text-3xl font-extrabold text-amber-300 tracking-wide drop-shadow-md">
-        PORTAL ACTIVATED! 🌌
+      <h2 class="text-3xl font-extrabold text-amber-300 tracking-wide drop-shadow-md" id="win-modal-title">
+        ROUND COMPLETED! 🏆
       </h2>
-      <p class="text-purple-200 font-medium text-sm leading-relaxed">
-        You collected all 8 Power Crystals, evolved your companion, and earned +1 Win! 🏆
+      <p class="text-purple-200 font-medium text-sm leading-relaxed" id="win-modal-msg">
+        Awesome job, Raza! You collected all 8 Diamonds! 💎
       </p>
 
       <!-- Badge Award -->
@@ -306,34 +503,534 @@
         <span>LEGENDARY PUZZLE MASTER</span>
       </div>
 
-      <p class="text-xs text-cyan-300 font-semibold">Created by Raza ✨</p>
-
       <button id="play-again-btn" class="bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-amber-950 font-extrabold text-xl px-8 py-3 rounded-2xl shadow-[0_5px_0_#b45309] active:translate-y-0.5 active:shadow-none w-full transition cursor-pointer mt-1">
-        Play Again 🔄
+        Play Next Round 🔄
       </button>
     </div>
   </div>
 
-  <!-- 10-Win Milestone Award Modal Overlay -->
-  <div id="milestone-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-gradient-to-b from-purple-900 via-indigo-900 to-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl border-4 border-amber-300 flex flex-col items-center gap-4 text-white animate-pop">
-      <div class="text-6xl bg-amber-400/20 border-4 border-amber-400 w-24 h-24 rounded-full flex items-center justify-center -mt-16 shadow-xl animate-bounce">
-        🏆
-      </div>
-      <h3 id="milestone-title" class="text-2xl sm:text-3xl font-extrabold text-yellow-300 drop-shadow">10 WINS UNLOCKED! 🎉</h3>
-      <p id="milestone-subtitle" class="text-sm text-purple-200 font-medium leading-relaxed">
-        You earned a new Explorer Milestone Badge!
-      </p>
-      <div id="milestone-badge-box" class="bg-amber-400/20 border-2 border-amber-400 rounded-2xl p-3 px-6 text-amber-300 font-extrabold text-lg shadow-lg">
-        🥉 BRONZE EXPLORER BADGE
-      </div>
-      <button id="milestone-claim-btn" class="bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-amber-950 font-extrabold text-lg px-8 py-3 rounded-2xl shadow-[0_5px_0_#b45309] active:translate-y-0.5 active:shadow-none w-full transition cursor-pointer mt-2">
-        Awesome! Continue 🚀
-      </button>
-    </div>
-  </div>
+  <!-- Core Game Script -->
+  <script>
+    /* ==========================================================================
+       Quizoo: Pet Puzzle Quest - Core Game Logic
+       ========================================================================== */
 
-  <!-- App Script -->
-  <script src="app.js"></script>
+    // 100 MATH QUIZ PUZZLES
+    const mathPuzzles100 = [
+      { id: "m1", q: "What is 2 + 3?", options: ["5", "6", "4", "7"], a: "5", hint: "Count 3 up from 2!" },
+      { id: "m2", q: "What is 4 + 4?", options: ["8", "7", "9", "6"], a: "8", hint: "Double four!" },
+      { id: "m3", q: "What is 5 + 5?", options: ["10", "9", "11", "15"], a: "10", hint: "Fingers on both hands!" },
+      { id: "m4", q: "What is 6 + 2?", options: ["8", "7", "9", "10"], a: "8", hint: "Two more than 6!" },
+      { id: "m5", q: "What is 7 + 3?", options: ["10", "11", "9", "12"], a: "10", hint: "Pairs to make ten!" },
+      { id: "m6", q: "What is 1 + 9?", options: ["10", "8", "11", "9"], a: "10", hint: "One more than 9!" },
+      { id: "m7", q: "What is 3 + 4?", options: ["7", "6", "8", "9"], a: "7", hint: "Count 4 up from 3!" },
+      { id: "m8", q: "What is 8 + 2?", options: ["10", "9", "11", "12"], a: "10", hint: "Pairs to make 10!" },
+      { id: "m9", q: "What is 5 + 3?", options: ["8", "7", "9", "6"], a: "8", hint: "Three past 5!" },
+      { id: "m10", q: "What is 6 + 4?", options: ["10", "9", "12", "11"], a: "10", hint: "Makes 10!" },
+      { id: "m11", q: "What is 10 + 5?", options: ["15", "14", "16", "20"], a: "15", hint: "Ten and five!" },
+      { id: "m12", q: "What is 7 + 2?", options: ["9", "8", "10", "11"], a: "9", hint: "One less than 10!" },
+      { id: "m13", q: "What is 4 + 5?", options: ["9", "8", "10", "7"], a: "9", hint: "One less than 5+5!" },
+      { id: "m14", q: "What is 2 + 8?", options: ["10", "9", "11", "12"], a: "10", hint: "Equals ten!" },
+      { id: "m15", q: "What is 6 + 3?", options: ["9", "8", "10", "7"], a: "9", hint: "Three past six!" },
+      { id: "m16", q: "What is 3 + 3?", options: ["6", "5", "7", "8"], a: "6", hint: "Double 3!" },
+      { id: "m17", q: "What is 1 + 6?", options: ["7", "6", "8", "5"], a: "7", hint: "One past six!" },
+      { id: "m18", q: "What is 9 + 3?", options: ["12", "11", "13", "10"], a: "12", hint: "Two past 10!" },
+      { id: "m19", q: "What is 4 + 7?", options: ["11", "10", "12", "13"], a: "11", hint: "One more than 10!" },
+      { id: "m20", q: "What is 5 + 6?", options: ["11", "10", "12", "9"], a: "11", hint: "One more than 5+5!" },
+      { id: "m21", q: "What is 8 + 4?", options: ["12", "11", "13", "14"], a: "12", hint: "Four past 8!" },
+      { id: "m22", q: "What is 10 + 10?", options: ["20", "19", "21", "30"], a: "20", hint: "Two tens!" },
+      { id: "m23", q: "What is 7 + 5?", options: ["12", "11", "13", "14"], a: "12", hint: "Two past ten!" },
+      { id: "m24", q: "What is 9 + 4?", options: ["13", "12", "14", "15"], a: "13", hint: "Three past ten!" },
+      { id: "m25", q: "What is 8 + 8?", options: ["16", "15", "17", "18"], a: "16", hint: "Double eight!" },
+      { id: "m26", q: "What is 5 - 2?", options: ["3", "2", "4", "1"], a: "3", hint: "Take 2 away from 5!" },
+      { id: "m27", q: "What is 10 - 5?", options: ["5", "4", "6", "3"], a: "5", hint: "Half of ten!" },
+      { id: "m28", q: "What is 8 - 3?", options: ["5", "4", "6", "7"], a: "5", hint: "Take 3 from 8!" },
+      { id: "m29", q: "What is 6 - 4?", options: ["2", "3", "1", "4"], a: "2", hint: "Take 4 from 6!" },
+      { id: "m30", q: "What is 9 - 1?", options: ["8", "7", "9", "6"], a: "8", hint: "Number before 9!" },
+      { id: "m31", q: "What is 7 - 3?", options: ["4", "3", "5", "2"], a: "4", hint: "Take 3 from 7!" },
+      { id: "m32", q: "What is 10 - 2?", options: ["8", "7", "9", "6"], a: "8", hint: "Two less than 10!" },
+      { id: "m33", q: "What is 4 - 2?", options: ["2", "1", "3", "0"], a: "2", hint: "Half of 4!" },
+      { id: "m34", q: "What is 8 - 4?", options: ["4", "3", "5", "6"], a: "4", hint: "Half of 8!" },
+      { id: "m35", q: "What is 6 - 3?", options: ["3", "2", "4", "5"], a: "3", hint: "Half of 6!" },
+      { id: "m36", q: "What is 10 - 7?", options: ["3", "4", "2", "5"], a: "3", hint: "Count 7 up to 10!" },
+      { id: "m37", q: "What is 9 - 5?", options: ["4", "3", "5", "6"], a: "4", hint: "Take 5 from 9!" },
+      { id: "m38", q: "What is 7 - 5?", options: ["2", "3", "1", "4"], a: "2", hint: "Difference of 7 and 5!" },
+      { id: "m39", q: "What is 12 - 2?", options: ["10", "9", "11", "8"], a: "10", hint: "Drop the 2!" },
+      { id: "m40", q: "What is 15 - 5?", options: ["10", "11", "9", "8"], a: "10", hint: "Leaves a ten!" }
+    ];
+
+    // 100 LETTER & WORD QUIZ PUZZLES
+    const letterPuzzles100 = [
+      { id: "l1", q: "Fill in the blank: A, B, C, __, E", options: ["D", "F", "G", "H"], a: "D", hint: "Sounds like Dog!" },
+      { id: "l2", q: "Fill in the blank: H, I, J, __, L", options: ["K", "M", "N", "O"], a: "K", hint: "Sounds like Kite!" },
+      { id: "l3", q: "Fill in the blank: P, Q, R, __, T", options: ["S", "U", "V", "W"], a: "S", hint: "Sounds like Sun!" },
+      { id: "l4", q: "Fill in the blank: U, V, W, __, Y", options: ["X", "Z", "T", "S"], a: "X", hint: "Comes before Y!" },
+      { id: "l5", q: "What is the 1st letter of the alphabet?", options: ["A", "B", "Z", "M"], a: "A", hint: "Starts Apple!" },
+      { id: "l6", q: "What is the last letter of the alphabet?", options: ["Z", "Y", "X", "W"], a: "Z", hint: "Starts Zebra!" },
+      { id: "l7", q: "Fill in the vowel: C __ T 🐱", options: ["A", "E", "I", "U"], a: "A", hint: "Purring pet!" },
+      { id: "l8", q: "Fill in the vowel: D __ G 🐶", options: ["O", "A", "E", "U"], a: "O", hint: "Barking pet!" },
+      { id: "l9", q: "Fill in the vowel: S __ N ☀️", options: ["U", "E", "A", "O"], a: "U", hint: "Star in day sky!" },
+      { id: "l10", q: "Fill in the vowel: B __ D 🛏️", options: ["E", "A", "O", "U"], a: "E", hint: "Where you sleep!" },
+      { id: "l11", q: "Fill in the vowel: P __ G 🐷", options: ["I", "A", "E", "U"], a: "I", hint: "Pink farm animal!" },
+      { id: "l12", q: "Which letter starts 'Elephant'?", options: ["E", "A", "I", "O"], a: "E", hint: "Letter E!" },
+      { id: "l13", q: "Which letter starts 'Monkey'?", options: ["M", "N", "W", "V"], a: "M", hint: "Letter M!" },
+      { id: "l14", q: "Which letter starts 'Rainbow'?", options: ["R", "B", "P", "D"], a: "R", hint: "Letter R!" },
+      { id: "l15", q: "Which letter starts 'Tiger'?", options: ["T", "D", "P", "F"], a: "T", hint: "Letter T!" },
+      { id: "l16", q: "Which of these is a VOWEL?", options: ["E", "B", "T", "M"], a: "E", hint: "A, E, I, O, U!" },
+      { id: "l17", q: "Which of these is a VOWEL?", options: ["O", "K", "L", "R"], a: "O", hint: "Round vowel!" },
+      { id: "l18", q: "What letter comes right after 'M'?", options: ["N", "L", "O", "P"], a: "N", hint: "M, then N!" },
+      { id: "l19", q: "What letter comes right before 'Z'?", options: ["Y", "X", "W", "V"], a: "Y", hint: "Second to last!" },
+      { id: "l20", q: "Unscramble: T A R S 🌟", options: ["STAR", "RATS", "ARTS", "TARS"], a: "STAR", hint: "Shines in space!" },
+      { id: "l21", q: "Unscramble: O O N M 🌙", options: ["MOON", "MONO", "NOON", "MOONK"], a: "MOON", hint: "Night sky orb!" },
+      { id: "l22", q: "Unscramble: E E R T 🌳", options: ["TREE", "TEER", "REET", "FREE"], a: "TREE", hint: "Has green leaves!" },
+      { id: "l23", q: "Unscramble: O K O B 📚", options: ["BOOK", "COOK", "LOOK", "HOOK"], a: "BOOK", hint: "Read stories!" },
+      { id: "l24", q: "Unscramble: K I M L 🥛", options: ["MILK", "LIMK", "KLIM", "MICK"], a: "MILK", hint: "White drink!" }
+    ];
+
+    // PET DICTIONARY
+    const PET_DICTIONARY = {
+      fox: { id: "fox", name: "Rusty the Fox", icon: "🦊" },
+      dragon: { id: "dragon", name: "Sparky the Dragon", icon: "🐉" },
+      cat: { id: "cat", name: "Luna the Cat", icon: "🐱" },
+      dog: { id: "dog", name: "Buster the Dog", icon: "🐶" }
+    };
+
+    // GAME STATE
+    let playerName = localStorage.getItem('quizoo_player_name') || "Raza";
+    let activePet = PET_DICTIONARY[localStorage.getItem('quizoo_pet_id')] || PET_DICTIONARY.fox;
+    let activeCategory = localStorage.getItem('quizoo_category') || "math";
+    let lifetimeDiamonds = parseInt(localStorage.getItem('quizoo_lifetime_diamonds')) || 0;
+    let lifetimeWins = parseInt(localStorage.getItem('quizoo_lifetime_wins')) || 0;
+    
+    let currentRoundDiamonds = 0; // 0 to 8
+    let currentPuzzle = null;
+    let isMuted = false;
+    let wandUsedForCurrentPuzzle = false;
+    let audioCtx = null;
+
+    // PET CONTROLLER WITH PERSONALIZED SPEECH
+    const petController = {
+      activePet: PET_DICTIONARY.fox,
+      speechBubbleEl: null,
+      sidekickAvatarEl: null,
+      sidekickNameEl: null,
+
+      init(pet) {
+        if (pet) this.activePet = pet;
+        this.speechBubbleEl = document.getElementById('sidekick-speech-bubble');
+        this.sidekickAvatarEl = document.getElementById('sidekick-pet-avatar');
+        this.sidekickNameEl = document.getElementById('sidekick-pet-name');
+
+        this.updateDisplay();
+        this.bindClick();
+      },
+
+      setPet(pet) {
+        if (!pet) return;
+        this.activePet = pet;
+        this.updateDisplay();
+        const shortName = pet.name.split(' ')[0];
+        this.say(`Hi ${playerName}! I'm ${shortName}! Let me help you win! 🚀`, 'correct');
+      },
+
+      updateDisplay() {
+        if (!this.activePet) return;
+        const shortName = this.activePet.name.split(' ')[0];
+        if (this.sidekickAvatarEl) this.sidekickAvatarEl.textContent = this.activePet.icon;
+        if (this.sidekickNameEl) this.sidekickNameEl.textContent = shortName;
+      },
+
+      say(message, mood = 'idle') {
+        if (this.speechBubbleEl) {
+          this.speechBubbleEl.textContent = message;
+          this.speechBubbleEl.classList.remove('animate-pop');
+          void this.speechBubbleEl.offsetWidth; // Reflow
+          this.speechBubbleEl.classList.add('animate-pop');
+        }
+
+        // Trigger Keyframe Animations
+        if (this.sidekickAvatarEl) {
+          this.sidekickAvatarEl.classList.remove('pet-jump-anim', 'pet-wobble-anim');
+          void this.sidekickAvatarEl.offsetWidth;
+          if (mood === 'correct') {
+            this.sidekickAvatarEl.classList.add('pet-jump-anim');
+          } else if (mood === 'wrong') {
+            this.sidekickAvatarEl.classList.add('pet-wobble-anim');
+          }
+        }
+
+        // Voice Speech Synthesis Read Aloud
+        if (!isMuted && 'speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(message);
+          utterance.rate = 1.05;
+          utterance.pitch = 1.25;
+          window.speechSynthesis.speak(utterance);
+        }
+      },
+
+      onCorrect() {
+        const praiseList = [
+          `${playerName}, good job! 🎉`,
+          `${playerName}, awesome work! 💎`,
+          `${playerName}, you're a genius! 🌟`,
+          `Super fast, ${playerName}! 🚀`,
+          `Spot on, ${playerName}! 🎯`
+        ];
+        const msg = praiseList[Math.floor(Math.random() * praiseList.length)];
+        this.say(msg, 'correct');
+      },
+
+      onWrong() {
+        const encouragementList = [
+          `Oops! Try again, ${playerName}! 🤔`,
+          `${playerName}, you got this! 💪`,
+          `Don't give up, ${playerName}! ⭐`,
+          `Almost got it, ${playerName}! ✨`
+        ];
+        const msg = encouragementList[Math.floor(Math.random() * encouragementList.length)];
+        this.say(msg, 'wrong');
+      },
+
+      bindClick() {
+        const sidekickCard = document.getElementById('sidekick-pet-card');
+        if (sidekickCard) {
+          sidekickCard.onclick = () => {
+            const lines = [
+              `Go ${playerName}! Tap the right answer! 🎯`,
+              `I believe in you, ${playerName}! 💎`,
+              `Let's win another diamond, ${playerName}! 🐾`
+            ];
+            const line = lines[Math.floor(Math.random() * lines.length)];
+            this.say(line, 'correct');
+          };
+        }
+      }
+    };
+
+    // SOUND EFFECTS
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function playSoundEffect(type) {
+      if (isMuted) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        if (type === 'correct') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, now); // C5
+          osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+          osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.25); // G5
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.4);
+        } else if (type === 'wrong') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(140, now + 0.3);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        }
+      } catch (err) {
+        console.log("Audio effect play error:", err);
+      }
+    }
+
+    // MAIN GAME CONTROLLER
+    document.addEventListener('DOMContentLoaded', () => {
+      // DOM Elements
+      const statCrystalsEl = document.getElementById('stat-crystals');
+      const statWinsEl = document.getElementById('stat-wins');
+      const crystalCountEl = document.getElementById('crystal-count');
+      const stageBadgeEl = document.getElementById('stage-badge');
+      const puzzleQuestionEl = document.getElementById('puzzle-question');
+      const puzzleVisualEl = document.getElementById('puzzle-visual');
+      const choicesGridEl = document.getElementById('choices-grid');
+      const playerNameBadgeEl = document.getElementById('player-name-badge');
+      const activeCategoryBadgeEl = document.getElementById('active-category-badge');
+
+      // Modals & Buttons
+      const categoryModal = document.getElementById('category-modal');
+      const hintModal = document.getElementById('hint-modal');
+      const winModal = document.getElementById('win-modal');
+      const playerNameInput = document.getElementById('player-name-input');
+      
+      const soundBtn = document.getElementById('sound-btn');
+      const soundIcon = document.getElementById('sound-icon');
+      const soundText = document.getElementById('sound-text');
+      const changeCategoryBtn = document.getElementById('change-category-btn');
+      const startQuestBtn = document.getElementById('start-quest-btn');
+      const wandBtn = document.getElementById('wand-btn');
+      const hintBtn = document.getElementById('hint-btn');
+      const readAloudBtn = document.getElementById('read-aloud-btn');
+      const tryAgainBtn = document.getElementById('try-again-btn');
+      const playAgainBtn = document.getElementById('play-again-btn');
+
+      // Init UI
+      updateStatsUI();
+      petController.init(activePet);
+
+      // Handle Sound Toggle
+      soundBtn.onclick = () => {
+        isMuted = !isMuted;
+        if (isMuted) {
+          soundIcon.textContent = "🔇";
+          soundText.textContent = "Sound OFF";
+          if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        } else {
+          soundIcon.textContent = "🔊";
+          soundText.textContent = "Sound ON";
+          petController.say(`Sound is on, ${playerName}! 🎵`, 'correct');
+        }
+      };
+
+      // Handle Setup Screen & Pet Selection
+      const petSelectCards = document.querySelectorAll('.pet-select-card');
+      petSelectCards.forEach(card => {
+        card.onclick = () => {
+          petSelectCards.forEach(c => c.classList.remove('selected-pet'));
+          card.classList.add('selected-pet');
+          const petId = card.getAttribute('data-pet-id');
+          activePet = PET_DICTIONARY[petId] || PET_DICTIONARY.fox;
+        };
+      });
+
+      // Handle Quest Category Selection
+      const categoryBtns = document.querySelectorAll('.category-option-btn');
+      categoryBtns.forEach(btn => {
+        btn.onclick = () => {
+          categoryBtns.forEach(b => b.classList.remove('selected-category'));
+          btn.classList.add('selected-category');
+          activeCategory = btn.getAttribute('data-category');
+        };
+      });
+
+      // Show Setup Modal on Click
+      changeCategoryBtn.onclick = () => {
+        if (playerNameInput) playerNameInput.value = playerName;
+        categoryModal.classList.remove('hidden');
+      };
+
+      // Start Quest Action
+      startQuestBtn.onclick = () => {
+        const enteredName = playerNameInput.value.trim();
+        if (enteredName) playerName = enteredName;
+        localStorage.setItem('quizoo_player_name', playerName);
+        localStorage.setItem('quizoo_pet_id', activePet.id);
+        localStorage.setItem('quizoo_category', activeCategory);
+
+        categoryModal.classList.add('hidden');
+        petController.setPet(activePet);
+        updateCategoryBadge();
+        loadNewPuzzle();
+      };
+
+      function updateCategoryBadge() {
+        if (playerNameBadgeEl) playerNameBadgeEl.textContent = playerName;
+        if (activeCategoryBadgeEl) {
+          if (activeCategory === 'math') activeCategoryBadgeEl.textContent = "🔢 Math Quest";
+          else if (activeCategory === 'letter') activeCategoryBadgeEl.textContent = "🔤 Letter Quest";
+          else activeCategoryBadgeEl.textContent = "🎲 Mixed Quest";
+        }
+      }
+
+      function updateStatsUI() {
+        if (statCrystalsEl) statCrystalsEl.textContent = lifetimeDiamonds;
+        if (statWinsEl) statWinsEl.textContent = lifetimeWins;
+        if (crystalCountEl) crystalCountEl.textContent = `${currentRoundDiamonds} / 8`;
+        
+        // Update Diamond Slots
+        for (let i = 1; i <= 8; i++) {
+          const slot = document.querySelector(`.crystal-slot[data-slot="${i}"]`);
+          if (slot) {
+            if (i <= currentRoundDiamonds) slot.classList.add('collected');
+            else slot.classList.remove('collected');
+          }
+        }
+      }
+
+      // Load Puzzle
+      function loadNewPuzzle() {
+        wandUsedForCurrentPuzzle = false;
+        if (wandBtn) wandBtn.disabled = false;
+
+        let pool = mathPuzzles100;
+        if (activeCategory === 'letter') pool = letterPuzzles100;
+        else if (activeCategory === 'mixed') pool = [...mathPuzzles100, ...letterPuzzles100];
+
+        currentPuzzle = pool[Math.floor(Math.random() * pool.length)];
+
+        // Update Stage & Question
+        if (stageBadgeEl) stageBadgeEl.textContent = `⭐ STAGE ${currentRoundDiamonds + 1} OF 8`;
+        if (puzzleQuestionEl) puzzleQuestionEl.textContent = currentPuzzle.q;
+
+        // Render Visual Box
+        if (puzzleVisualEl) {
+          puzzleVisualEl.innerHTML = '';
+          if (currentPuzzle.q.includes('Unscramble:')) {
+            const match = currentPuzzle.q.match(/Unscramble:\s*([A-Z\s]+)/i);
+            const word = match ? match[1].trim() : 'WORD';
+            puzzleVisualEl.innerHTML = `<div class="scramble-box">${word}</div>`;
+          } else {
+            // Friendly Emojis
+            const emojis = ['🌟', '💎', '🍎', '🎈', '⭐', '🚀', '🎨', '🧩'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            puzzleVisualEl.innerHTML = `<span class="animate-bounce">${randomEmoji}</span> <span class="text-indigo-950 font-black">${currentPuzzle.q}</span>`;
+          }
+        }
+
+        // Render Answer Options
+        if (choicesGridEl) {
+          choicesGridEl.innerHTML = '';
+          const shuffledOptions = [...currentPuzzle.options].sort(() => Math.random() - 0.5);
+
+          shuffledOptions.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-btn';
+            btn.textContent = opt;
+            btn.onclick = () => handleAnswer(opt, btn);
+            choicesGridEl.appendChild(btn);
+          });
+        }
+      }
+
+      // Handle Answer Selection
+      function handleAnswer(selectedOpt, btnElement) {
+        const allBtns = choicesGridEl.querySelectorAll('.choice-btn');
+        
+        if (selectedOpt === currentPuzzle.a) {
+          // CORRECT ANSWER
+          allBtns.forEach(b => b.disabled = true);
+          btnElement.classList.add('correct-anim');
+          playSoundEffect('correct');
+
+          // Confetti Celebration
+          if (typeof confetti === 'function') {
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+          }
+
+          // Diamond & Win Progression
+          lifetimeDiamonds += 1;
+          lifetimeWins += 1;
+          currentRoundDiamonds += 1;
+
+          localStorage.setItem('quizoo_lifetime_diamonds', lifetimeDiamonds);
+          localStorage.setItem('quizoo_lifetime_wins', lifetimeWins);
+
+          // Update UI & Pet Speech
+          updateStatsUI();
+          petController.onCorrect();
+
+          // Check Round Completion
+          setTimeout(() => {
+            if (currentRoundDiamonds >= 8) {
+              triggerRoundCompletion();
+            } else {
+              loadNewPuzzle();
+            }
+          }, 1400);
+
+        } else {
+          // WRONG ANSWER
+          btnElement.classList.add('wrong-anim');
+          btnElement.disabled = true;
+          playSoundEffect('wrong');
+
+          petController.onWrong();
+        }
+      }
+
+      // Round Completion Modal
+      function triggerRoundCompletion() {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 150, spread: 100, origin: { y: 0.5 } });
+        }
+
+        const winModalTitle = document.getElementById('win-modal-title');
+        const winModalMsg = document.getElementById('win-modal-msg');
+        const winModalPetAvatar = document.getElementById('win-modal-pet-avatar');
+
+        if (winModalTitle) winModalTitle.textContent = `ROUND COMPLETED! 🏆`;
+        if (winModalMsg) winModalMsg.textContent = `Awesome job, ${playerName}! You collected all 8 Diamonds! 💎`;
+        if (winModalPetAvatar) winModalPetAvatar.textContent = `${activePet.icon} 🎉`;
+
+        winModal.classList.remove('hidden');
+      }
+
+      playAgainBtn.onclick = () => {
+        currentRoundDiamonds = 0;
+        updateStatsUI();
+        winModal.classList.add('hidden');
+        loadNewPuzzle();
+      };
+
+      // Lifeline 1: 50/50 Magic Wand
+      wandBtn.onclick = () => {
+        if (wandUsedForCurrentPuzzle || !currentPuzzle) return;
+        wandUsedForCurrentPuzzle = true;
+        wandBtn.disabled = true;
+
+        const allBtns = Array.from(choicesGridEl.querySelectorAll('.choice-btn'));
+        const wrongBtns = allBtns.filter(b => b.textContent.trim() !== currentPuzzle.a);
+        
+        // Remove 2 wrong options
+        const shuffledWrong = wrongBtns.sort(() => Math.random() - 0.5);
+        shuffledWrong.slice(0, 2).forEach(b => {
+          b.disabled = true;
+          b.style.opacity = '0.3';
+          b.style.textDecoration = 'line-through';
+        });
+
+        petController.say(`Poof! 2 wrong choices gone, ${playerName}! 🪄`, 'correct');
+      };
+
+      // Lifeline 2: Lightbulb Hint
+      hintBtn.onclick = () => {
+        if (!currentPuzzle) return;
+        const hintTextBox = document.getElementById('hint-text-box');
+        if (hintTextBox) hintTextBox.textContent = currentPuzzle.hint || "Look closely at the question!";
+        hintModal.classList.remove('hidden');
+        petController.say(`Here is a hint for you, ${playerName}! 💡`, 'correct');
+      };
+
+      tryAgainBtn.onclick = () => {
+        hintModal.classList.add('hidden');
+      };
+
+      // Lifeline 3: Read Question
+      readAloudBtn.onclick = () => {
+        if (!currentPuzzle || !('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        
+        const textToRead = `${playerName}, the question is: ${currentPuzzle.q}. The options are: ${currentPuzzle.options.join(', ')}.`;
+        const utterance = new SpeechSynthesisUtterance(textToRead);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.1;
+        window.speechSynthesis.speak(utterance);
+      };
+
+      // Start default puzzle on page load
+      updateCategoryBadge();
+      loadNewPuzzle();
+    });
+  </script>
 </body>
 </html>
