@@ -265,32 +265,6 @@
   animation: fireAura 1.2s ease-in-out infinite !important;
 }
 
-/* Fever Time Background Glow */
-@keyframes feverNeonBg {
-  0%, 100% { background-color: #0f172a; }
-  25% { background-color: #1e1b4b; }
-  50% { background-color: #311042; }
-  75% { background-color: #064e3b; }
-}
-
-.fever-active-bg {
-  animation: feverNeonBg 3s ease infinite !important;
-}
-
-/* Falling Star Particle */
-@keyframes starRain {
-  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-}
-
-.falling-star {
-  position: fixed;
-  top: -20px;
-  pointer-events: none;
-  z-index: 30;
-  animation: starRain linear forwards;
-}
-
 /* Pet Skins */
 .skin-galaxy-blue {
   filter: drop-shadow(0 0 12px #38bdf8);

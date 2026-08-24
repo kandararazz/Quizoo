@@ -262,53 +262,35 @@
               +1 WIN! 🏆
             </div>
           </span>
-        </div>
-
-        <!-- Diamond Shop Button -->
-        <button id="shop-btn" class="bg-gradient-to-b from-emerald-400 to-emerald-600 hover:from-emerald-500 hover:to-emerald-700 text-white font-bold text-xs sm:text-sm px-3 py-1.5 rounded-2xl shadow-[0_4px_0_#047857] active:shadow-[0_2px_0_#047857] active:translate-y-0.5 transition flex items-center gap-1 cursor-pointer">
-          🛍️ <span class="hidden sm:inline">Shop</span>
-        </button>
-
-        <!-- Daily Lucky Wheel Button -->
-        <button id="wheel-btn" class="bg-gradient-to-b from-pink-400 to-purple-600 hover:from-pink-500 hover:to-purple-700 text-white font-bold text-xs sm:text-sm px-3 py-1.5 rounded-2xl shadow-[0_4px_0_#831843] active:shadow-[0_2px_0_#831843] active:translate-y-0.5 transition flex items-center gap-1 cursor-pointer">
-          🎡 <span class="hidden sm:inline">Wheel</span>
-        </button>
-
-        <!-- Sound Toggle -->
-        <button id="sound-btn" class="bg-gradient-to-b from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold text-xs sm:text-sm px-3 py-1.5 rounded-2xl shadow-[0_4px_0_#c2410c] active:shadow-[0_2px_0_#c2410c] active:translate-y-0.5 transition flex items-center gap-1.5 cursor-pointer">
+             <!-- Sound Toggle -->
+        <button id="sound-btn" class="bg-gradient-to-b from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold text-xs sm:text-sm px-3.5 py-1.5 rounded-2xl shadow-[0_4px_0_#c2410c] active:shadow-[0_2px_0_#c2410c] active:translate-y-0.5 transition flex items-center gap-1.5 cursor-pointer">
           <span id="sound-icon">🔊</span>
         </button>
       </div>
     </header>
 
-    <!-- Player & Quest Status Bar + Fever Bar -->
-    <section class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-3 px-4 flex flex-col gap-2 text-white">
-      <div class="flex items-center justify-between flex-wrap gap-2">
-        <div class="flex items-center gap-2 flex-wrap">
-          <span class="text-xs text-purple-200 font-bold uppercase tracking-wider">Player:</span>
-          <span id="player-name-badge" class="bg-amber-400 text-amber-950 font-black text-xs px-2.5 py-1 rounded-xl shadow">
-            Raza
-          </span>
-          <span class="text-xs text-purple-200 font-bold uppercase tracking-wider ml-1">Quest:</span>
-          <span id="active-category-badge" class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-extrabold text-xs px-3 py-1 rounded-xl shadow">
-            🔢 Math Quest
-          </span>
+    <!-- Player & Quest Status Bar -->
+    <section class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-3 px-4 flex items-center justify-between flex-wrap gap-2 text-white">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-xs text-purple-200 font-bold uppercase tracking-wider">Player:</span>
+        <span id="player-name-badge" class="bg-amber-400 text-amber-950 font-black text-xs px-2.5 py-1 rounded-xl shadow">
+          Raza
+        </span>
+        <span class="text-xs text-purple-200 font-bold uppercase tracking-wider ml-1">Quest:</span>
+        <span id="active-category-badge" class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-extrabold text-xs px-3 py-1 rounded-xl shadow">
+          🔢 Math Quest
+        </span>
 
-          <!-- Fire Streak Badge -->
-          <span id="streak-badge" class="hidden bg-gradient-to-r from-amber-500 to-red-600 text-white font-black text-xs px-2.5 py-1 rounded-xl shadow animate-pulse flex items-center gap-1">
-            🔥 <span id="streak-text">3x Streak! (2x 💎)</span>
-          </span>
-        </div>
-
-        <button id="change-category-btn" class="bg-white/20 hover:bg-white/30 text-white font-bold text-xs px-3 py-1.5 rounded-xl transition flex items-center gap-1.5 cursor-pointer">
-          ⚙️ Setup & Pet
-        </button>
+        <!-- Fire Streak Badge -->
+        <span id="streak-badge" class="hidden bg-gradient-to-r from-amber-500 to-red-600 text-white font-black text-xs px-2.5 py-1 rounded-xl shadow animate-pulse flex items-center gap-1">
+          🔥 <span id="streak-text">3x Streak! (2x 💎)</span>
+        </span>
       </div>
 
-      <!-- Fever Bar Indicator -->
-      <div class="w-full bg-slate-900/60 rounded-full h-3.5 border border-amber-300/40 p-0.5 relative overflow-hidden flex items-center">
-        <div id="fever-bar-fill" class="bg-gradient-to-r from-amber-400 via-pink-500 to-purple-400 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
-        <span id="fever-text" class="absolute inset-0 flex items-center justify-center text-[9px] font-black text-amber-200 uppercase tracking-widest drop-shadow select-none">⚡ FEVER CHARGE 0%</span>
+      <button id="change-category-btn" class="bg-white/20 hover:bg-white/30 text-white font-bold text-xs px-3.5 py-1.5 rounded-xl transition flex items-center gap-1.5 cursor-pointer">
+        ⚙️ Setup & Pet
+      </button>
+    </section>0%</span>
       </div>
     </section>
 
@@ -606,68 +588,6 @@
         Play Next Round 🔄
       </button>
     </div>
-  <!-- 1. Diamond Shop Modal -->
-  <div id="shop-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-    <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full text-center shadow-2xl border-4 border-emerald-300 flex flex-col gap-4 animate-pop my-auto relative">
-      <button id="close-shop-btn" class="absolute top-3 right-4 text-slate-400 hover:text-slate-700 text-xl font-black cursor-pointer">✕</button>
-
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 flex items-center justify-center gap-2">
-          🛍️ Diamond Pet Shop
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-600 font-medium mt-1">
-          Equip stylish accessories, unlock color skins, and buy treats!
-        </p>
-      </div>
-
-      <!-- Balance Header -->
-      <div class="bg-emerald-50 border-2 border-emerald-300 p-2.5 rounded-2xl flex items-center justify-between px-4">
-        <span class="text-xs sm:text-sm font-extrabold text-emerald-900">Your Diamonds:</span>
-        <span class="text-base sm:text-lg font-black text-emerald-600 flex items-center gap-1">
-          💎 <span id="shop-diamond-balance">0</span>
-        </span>
-      </div>
-
-      <!-- Shop Tabs -->
-      <div class="flex gap-2 border-b border-slate-200 pb-2">
-        <button id="tab-accessories-btn" class="flex-1 py-2 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 text-white shadow cursor-pointer">🎩 Accessories</button>
-        <button id="tab-skins-btn" class="flex-1 py-2 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer">🎨 Color Skins</button>
-        <button id="tab-snacks-btn" class="flex-1 py-2 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer">🍕 Pet Treats</button>
-      </div>
-
-      <!-- Tab Content Grid -->
-      <div id="shop-items-container" class="grid grid-cols-2 gap-3 max-h-[300px] overflow-y-auto p-1">
-        <!-- Rendered dynamically via JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. Daily Lucky Wheel Modal -->
-  <div id="lucky-wheel-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-    <div class="bg-white rounded-3xl p-5 sm:p-6 max-w-md w-full text-center shadow-2xl border-4 border-pink-300 flex flex-col items-center gap-4 animate-pop my-auto relative">
-      <button id="close-wheel-btn" class="absolute top-3 right-4 text-slate-400 hover:text-slate-700 text-xl font-black cursor-pointer">✕</button>
-
-      <div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 flex items-center justify-center gap-2">
-          🎡 Daily Lucky Wheel
-        </h2>
-        <p class="text-xs text-slate-600 font-medium mt-1">Spin the wheel to win bonus diamonds, snacks, and rare prizes!</p>
-      </div>
-
-      <!-- Canvas Wheel -->
-      <div class="relative w-64 h-64 flex items-center justify-center my-1">
-        <!-- Pointer Arrow -->
-        <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20 text-3xl filter drop-shadow">🔻</div>
-        <canvas id="wheel-canvas" width="250" height="250" class="rounded-full shadow-2xl border-4 border-pink-400 transition-transform duration-[4000ms] cubic-bezier(0.15, 0.9, 0.2, 1)"></canvas>
-      </div>
-
-      <button id="spin-wheel-btn" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-extrabold text-base py-3 rounded-2xl shadow-lg cursor-pointer transform active:scale-95 transition">
-        🎯 SPIN THE WHEEL!
-      </button>
-      
-      <p id="wheel-status-msg" class="text-xs text-slate-500 font-bold min-h-[18px]"></p>
-    </div>
-  </div>
 
   <!-- 3. Treasure Vault Minigame Modal -->
   <div id="treasure-vault-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
@@ -994,36 +914,9 @@
       // State Variables
       let equippedAccessory = localStorage.getItem('quizoo_equipped_accessory') || null;
       let equippedSkin = localStorage.getItem('quizoo_equipped_skin') || 'galaxy-blue';
-      let unlockedItems = JSON.parse(localStorage.getItem('quizoo_unlocked_items') || '["galaxy-blue"]');
       let currentStreak = 0;
-      let feverCharge = 0;
-      let isFeverActive = false;
       let idleTimer = null;
       let isPetSleeping = false;
-      let activeShopTab = 'accessories';
-      let wheelSpinning = false;
-      let currentWheelAngle = 0;
-
-      // Shop Catalog Definition
-      const SHOP_CATALOG = {
-        accessories: [
-          { id: 'crown', name: 'Golden Crown', icon: '👑', price: 50 },
-          { id: 'shades', name: 'Cool Shades', icon: '🕶️', price: 35 },
-          { id: 'jetpack', name: 'Jetpack', icon: '🚀', price: 75 },
-          { id: 'top-hat', name: 'Top Hat', icon: '🎩', price: 40 },
-          { id: 'headphones', name: 'Neon Headphones', icon: '🎧', price: 30 }
-        ],
-        skins: [
-          { id: 'galaxy-blue', name: 'Galaxy Blue', icon: '🌌', price: 0, class: 'skin-galaxy-blue' },
-          { id: 'neon-gold', name: 'Neon Gold', icon: '⚡', price: 60, class: 'skin-neon-gold' },
-          { id: 'rainbow-sparkle', name: 'Rainbow Sparkle', icon: '🌈', price: 100, class: 'skin-rainbow-sparkle' }
-        ],
-        snacks: [
-          { id: 'pizza', name: 'Pizza Slice', icon: '🍕', price: 5, bonus: '+10 Happy' },
-          { id: 'cupcake', name: 'Sweet Cupcake', icon: '🧁', price: 5, bonus: '+10 Happy' },
-          { id: 'apple', name: 'Crispy Apple', icon: '🍎', price: 3, bonus: '+5 Happy' }
-        ]
-      };
 
       // Init UI
       updateStatsUI();
@@ -1073,16 +966,6 @@
             gain.connect(audioCtx.destination);
             osc.start(now);
             osc.stop(now + 0.25);
-          } else if (type === 'fever') {
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(523.25, now);
-            osc.frequency.exponentialRampToValueAtTime(1046.5, now + 0.5);
-            gain.gain.setValueAtTime(0.25, now);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start(now);
-            osc.stop(now + 0.6);
           }
         } catch (err) {
           console.log("Audio effect play error:", err);
@@ -1091,13 +974,11 @@
 
       // PET COSMETICS & APPEARANCE
       function updatePetAppearance() {
-        // Accessory
         if (sidekickAccessoryOverlay) {
           const accMap = { crown: '👑', shades: '🕶️', jetpack: '🚀', 'top-hat': '🎩', headphones: '🎧' };
           sidekickAccessoryOverlay.textContent = accMap[equippedAccessory] || '';
         }
 
-        // Skin
         const avatarEl = document.getElementById('sidekick-pet-avatar');
         if (avatarEl) {
           avatarEl.classList.remove('skin-galaxy-blue', 'skin-neon-gold', 'skin-rainbow-sparkle');
@@ -1113,7 +994,6 @@
             return;
           }
 
-          // Spawn Floating Hearts
           spawnFloatingHeart(e.clientX || window.innerWidth - 60, e.clientY || window.innerHeight - 80);
           playSoundEffect('purr');
 
@@ -1177,7 +1057,6 @@
         const avatarEl = document.getElementById('sidekick-pet-avatar');
         if (avatarEl) avatarEl.style.opacity = '0.75';
 
-        // Floating Zzz
         if (petParticlesContainer) {
           petParticlesContainer.innerHTML = '<div class="floating-zzz" style="right:30px; bottom:90px;">💤</div>';
         }
@@ -1195,24 +1074,11 @@
         petController.say(`Yay! I'm awake and ready, ${playerName}! ☀️`, 'correct');
       }
 
-      // STREAKS, MULTIPLIERS & FEVER TIME
-      function updateStreakAndFever(isCorrect) {
+      // STREAKS & MULTIPLIERS
+      function updateStreak(isCorrect) {
         if (isCorrect) {
           currentStreak++;
-          feverCharge = Math.min(100, feverCharge + 25);
 
-          // Update Fever Bar UI
-          if (feverBarFillEl) feverBarFillEl.style.width = `${feverCharge}%`;
-          if (feverTextEl) {
-            feverTextEl.textContent = feverCharge >= 100 ? '⚡ FEVER MODE READY! 🔥' : `⚡ FEVER CHARGE ${feverCharge}%`;
-          }
-
-          // Trigger Fever Mode if at 100%
-          if (feverCharge >= 100 && !isFeverActive) {
-            triggerFeverTime();
-          }
-
-          // Check Fire Mode (3+ Streak)
           if (currentStreak >= 3) {
             if (streakBadgeEl) streakBadgeEl.classList.remove('hidden');
             if (streakTextEl) streakTextEl.textContent = `${currentStreak}x Streak! (2x 💎)`;
@@ -1227,255 +1093,6 @@
           if (sidekickPetCard) sidekickPetCard.classList.remove('fire-aura-anim');
           return 1;
         }
-      }
-
-      function triggerFeverTime() {
-        isFeverActive = true;
-        playSoundEffect('fever');
-        document.body.classList.add('fever-active-bg');
-
-        if (feverTextEl) feverTextEl.textContent = '🌟 FEVER TIME ACTIVE! (STARS RAINING) 🌟';
-
-        // Falling Stars Effect
-        const starInterval = setInterval(() => {
-          if (!isFeverActive) {
-            clearInterval(starInterval);
-            return;
-          }
-          const star = document.createElement('div');
-          star.className = 'falling-star';
-          star.textContent = Math.random() > 0.5 ? '✨' : '⭐';
-          star.style.left = `${Math.random() * 95}vw`;
-          star.style.animationDuration = `${1.5 + Math.random() * 1.5}s`;
-          document.body.appendChild(star);
-          setTimeout(() => star.remove(), 3000);
-        }, 300);
-
-        // 10 Seconds duration
-        setTimeout(() => {
-          isFeverActive = false;
-          feverCharge = 0;
-          document.body.classList.remove('fever-active-bg');
-          if (feverBarFillEl) feverBarFillEl.style.width = '0%';
-          if (feverTextEl) feverTextEl.textContent = '⚡ FEVER CHARGE 0%';
-        }, 10000);
-      }
-
-      // DIAMOND SHOP HANDLERS
-      if (shopBtn) shopBtn.onclick = () => {
-        renderShopUI();
-        shopModal.classList.remove('hidden');
-      };
-      if (closeShopBtn) closeShopBtn.onclick = () => shopModal.classList.add('hidden');
-
-      const tabAccBtn = document.getElementById('tab-accessories-btn');
-      const tabSkinsBtn = document.getElementById('tab-skins-btn');
-      const tabSnacksBtn = document.getElementById('tab-snacks-btn');
-
-      if (tabAccBtn) tabAccBtn.onclick = () => switchShopTab('accessories', tabAccBtn);
-      if (tabSkinsBtn) tabSkinsBtn.onclick = () => switchShopTab('skins', tabSkinsBtn);
-      if (tabSnacksBtn) tabSnacksBtn.onclick = () => switchShopTab('snacks', tabSnacksBtn);
-
-      function switchShopTab(tab, btn) {
-        activeShopTab = tab;
-        [tabAccBtn, tabSkinsBtn, tabSnacksBtn].forEach(b => {
-          if (b) {
-            b.className = 'flex-1 py-2 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 cursor-pointer';
-          }
-        });
-        btn.className = 'flex-1 py-2 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 text-white shadow cursor-pointer';
-        renderShopUI();
-      }
-
-      function renderShopUI() {
-        const shopBalEl = document.getElementById('shop-diamond-balance');
-        if (shopBalEl) shopBalEl.textContent = lifetimeDiamonds;
-
-        const container = document.getElementById('shop-items-container');
-        if (!container) return;
-        container.innerHTML = '';
-
-        const items = SHOP_CATALOG[activeShopTab] || [];
-        items.forEach(item => {
-          const card = document.createElement('div');
-          card.className = 'bg-slate-50 border-2 border-slate-200 rounded-2xl p-3 flex flex-col items-center gap-1.5 shadow-sm';
-
-          const isUnlocked = unlockedItems.includes(item.id) || item.price === 0;
-          const isEquipped = (equippedAccessory === item.id) || (equippedSkin === item.id);
-
-          let actionBtnHTML = '';
-          if (activeShopTab === 'snacks') {
-            actionBtnHTML = `<button class="buy-item-btn w-full bg-amber-400 hover:bg-amber-500 text-amber-950 font-black text-xs py-1.5 rounded-xl shadow cursor-pointer">Buy (${item.price} 💎)</button>`;
-          } else if (isEquipped) {
-            actionBtnHTML = `<button class="unequip-item-btn w-full bg-slate-400 text-white font-black text-xs py-1.5 rounded-xl shadow cursor-pointer">Equipped ✓</button>`;
-          } else if (isUnlocked) {
-            actionBtnHTML = `<button class="equip-item-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs py-1.5 rounded-xl shadow cursor-pointer">Equip</button>`;
-          } else {
-            actionBtnHTML = `<button class="buy-item-btn w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs py-1.5 rounded-xl shadow cursor-pointer">Unlock (${item.price} 💎)</button>`;
-          }
-
-          card.innerHTML = `
-            <span class="text-3xl">${item.icon}</span>
-            <span class="text-xs font-bold text-slate-800">${item.name}</span>
-            ${actionBtnHTML}
-          `;
-
-          // Button click logic
-          const buyBtn = card.querySelector('.buy-item-btn');
-          const equipBtn = card.querySelector('.equip-item-btn');
-          const unequipBtn = card.querySelector('.unequip-item-btn');
-
-          if (buyBtn) {
-            buyBtn.onclick = () => {
-              if (activeShopTab === 'snacks') {
-                feedPet(item.id, item.price, item.icon);
-                renderShopUI();
-                return;
-              }
-              if (lifetimeDiamonds < item.price) {
-                alert(`You need ${item.price} Diamonds to unlock ${item.name}!`);
-                return;
-              }
-              lifetimeDiamonds -= item.price;
-              unlockedItems.push(item.id);
-              if (activeShopTab === 'accessories') equippedAccessory = item.id;
-              if (activeShopTab === 'skins') equippedSkin = item.id;
-
-              saveShopState();
-              updateStatsUI();
-              updatePetAppearance();
-              renderShopUI();
-            };
-          }
-
-          if (equipBtn) {
-            equipBtn.onclick = () => {
-              if (activeShopTab === 'accessories') equippedAccessory = item.id;
-              if (activeShopTab === 'skins') equippedSkin = item.id;
-
-              saveShopState();
-              updatePetAppearance();
-              renderShopUI();
-            };
-          }
-
-          if (unequipBtn) {
-            unequipBtn.onclick = () => {
-              if (activeShopTab === 'accessories') equippedAccessory = null;
-              if (activeShopTab === 'skins') equippedSkin = 'galaxy-blue';
-
-              saveShopState();
-              updatePetAppearance();
-              renderShopUI();
-            };
-          }
-
-          container.appendChild(card);
-        });
-      }
-
-      function saveShopState() {
-        localStorage.setItem('quizoo_lifetime_diamonds', lifetimeDiamonds);
-        localStorage.setItem('quizoo_equipped_accessory', equippedAccessory || '');
-        localStorage.setItem('quizoo_equipped_skin', equippedSkin || 'galaxy-blue');
-        localStorage.setItem('quizoo_unlocked_items', JSON.stringify(unlockedItems));
-      }
-
-      // DAILY LUCKY WHEEL MINIGAME
-      if (wheelBtn) wheelBtn.onclick = () => {
-        initWheelCanvas();
-        luckyWheelModal.classList.remove('hidden');
-      };
-      if (closeWheelBtn) closeWheelBtn.onclick = () => luckyWheelModal.classList.add('hidden');
-
-      const wheelPrizes = [
-        { label: '10 💎', color: '#f43f5e', type: 'diamonds', val: 10 },
-        { label: '25 💎', color: '#3b82f6', type: 'diamonds', val: 25 },
-        { label: '50 💎', color: '#10b981', type: 'diamonds', val: 50 },
-        { label: '🍕 Snack', color: '#f59e0b', type: 'snack', val: 5 },
-        { label: '🕶️ Shades', color: '#8b5cf6', type: 'accessory', val: 'shades' },
-        { label: '🔥 2x Boost', color: '#ec4899', type: 'boost', val: 3 },
-        { label: '100 💎', color: '#06b6d4', type: 'diamonds', val: 100 },
-        { label: '🏆 Badge', color: '#eab308', type: 'badge', val: 'Wheel Champion' }
-      ];
-
-      function initWheelCanvas() {
-        const canvas = document.getElementById('wheel-canvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const numSectors = wheelPrizes.length;
-        const arc = (2 * Math.PI) / numSectors;
-
-        ctx.clearRect(0, 0, 250, 250);
-        ctx.save();
-        ctx.translate(125, 125);
-
-        wheelPrizes.forEach((prize, i) => {
-          const angle = i * arc;
-          ctx.beginPath();
-          ctx.arc(0, 0, 120, angle, angle + arc);
-          ctx.lineTo(0, 0);
-          ctx.fillStyle = prize.color;
-          ctx.fill();
-          ctx.lineWidth = 2;
-          ctx.strokeStyle = '#ffffff';
-          ctx.stroke();
-
-          // Prize Text
-          ctx.save();
-          ctx.rotate(angle + arc / 2);
-          ctx.textAlign = 'right';
-          ctx.fillStyle = '#ffffff';
-          ctx.font = 'bold 12px sans-serif';
-          ctx.fillText(prize.label, 110, 4);
-          ctx.restore();
-        });
-
-        ctx.restore();
-      }
-
-      const spinWheelBtn = document.getElementById('spin-wheel-btn');
-      const wheelStatusMsg = document.getElementById('wheel-status-msg');
-
-      if (spinWheelBtn) {
-        spinWheelBtn.onclick = () => {
-          if (wheelSpinning) return;
-          wheelSpinning = true;
-          if (wheelStatusMsg) wheelStatusMsg.textContent = 'Spinning the wheel... Good luck!';
-
-          const winningIndex = Math.floor(Math.random() * wheelPrizes.length);
-          const sectorAngle = 360 / wheelPrizes.length;
-          const targetAngle = 360 * 5 + (360 - (winningIndex * sectorAngle + sectorAngle / 2));
-          currentWheelAngle += targetAngle;
-
-          const canvas = document.getElementById('wheel-canvas');
-          if (canvas) canvas.style.transform = `rotate(${currentWheelAngle}deg)`;
-
-          setTimeout(() => {
-            wheelSpinning = false;
-            const prize = wheelPrizes[winningIndex];
-
-            if (prize.type === 'diamonds') {
-              lifetimeDiamonds += prize.val;
-              if (wheelStatusMsg) wheelStatusMsg.textContent = `🎉 You won ${prize.val} Diamonds!`;
-            } else if (prize.type === 'snack') {
-              lifetimeDiamonds += 10;
-              if (wheelStatusMsg) wheelStatusMsg.textContent = `🎉 You won a Free Snack + 10 Diamonds!`;
-            } else if (prize.type === 'accessory') {
-              if (!unlockedItems.includes('shades')) unlockedItems.push('shades');
-              equippedAccessory = 'shades';
-              saveShopState();
-              if (wheelStatusMsg) wheelStatusMsg.textContent = `🎉 You unlocked Cool Shades! 🕶️`;
-            } else {
-              lifetimeDiamonds += 50;
-              if (wheelStatusMsg) wheelStatusMsg.textContent = `🎉 You unlocked the Wheel Champion Badge + 50 💎!`;
-            }
-
-            saveShopState();
-            updateStatsUI();
-            updatePetAppearance();
-          }, 4000);
-        };
       }
 
       // TREASURE VAULT MINIGAME (AFTER 8 STAGES)
@@ -1496,7 +1113,7 @@
           chestBtns.forEach(b => b.disabled = true);
           const bonusDiamonds = [50, 75, 100][idx] || 50;
           lifetimeDiamonds += bonusDiamonds;
-          saveShopState();
+          localStorage.setItem('quizoo_lifetime_diamonds', lifetimeDiamonds);
           updateStatsUI();
 
           if (chestRewardTitle) chestRewardTitle.textContent = `🎁 Vault Reward Claimed!`;
@@ -1508,6 +1125,13 @@
           }
         };
       });
+
+      if (claimChestRewardBtn) {
+        claimChestRewardBtn.onclick = () => {
+          treasureVaultModal.classList.add('hidden');
+          triggerRoundCompletion();
+        };
+      }
 
       if (claimChestRewardBtn) {
         claimChestRewardBtn.onclick = () => {
@@ -1649,7 +1273,7 @@
           playSoundEffect('correct');
 
           // Streak & Multiplier
-          const diamondMultiplier = updateStreakAndFever(true);
+          const diamondMultiplier = updateStreak(true);
 
           // Confetti Celebration
           if (typeof confetti === 'function') {
@@ -1683,7 +1307,7 @@
           btnElement.disabled = true;
           playSoundEffect('wrong');
 
-          updateStreakAndFever(false);
+          updateStreak(false);
           petController.onWrong();
         }
       }
