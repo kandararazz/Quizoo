@@ -30,6 +30,9 @@
   <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+  <!-- Supabase JS Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <!-- Custom Styles -->
   <style>
     @media print {
@@ -1552,9 +1555,17 @@
       const heroNamesEl = document.getElementById('storybook-hero-names');
       if (heroNamesEl) heroNamesEl.textContent = `${curName} & ${petShortName}`;
       
+      // Temporarily hide setup modal if open to prevent screen stacking
+      const categoryModal = document.getElementById('category-modal');
+      if (categoryModal && !categoryModal.classList.contains('hidden')) {
+        categoryModal.dataset.wasOpen = 'true';
+        categoryModal.classList.add('hidden');
+      }
+
       modal.style.zIndex = '99999';
       modal.classList.remove('hidden');
       modal.style.display = 'flex';
+      modal.scrollTop = 0;
     };
 
     window.closeStorybook = function() {
@@ -1562,6 +1573,13 @@
       if (modal) {
         modal.classList.add('hidden');
         modal.style.display = 'none';
+      }
+
+      // Restore setup modal if it was open
+      const categoryModal = document.getElementById('category-modal');
+      if (categoryModal && categoryModal.dataset.wasOpen === 'true') {
+        categoryModal.dataset.wasOpen = 'false';
+        categoryModal.classList.remove('hidden');
       }
     };
 
@@ -1596,6 +1614,71 @@
       }
       if (isCorrect && typeof confetti === 'function') {
         confetti({ particleCount: 60, spread: 70 });
+      }
+    };
+
+    // Global Event Listener Fallback for Storybook Buttons
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('#storybook-btn, .open-storybook-btn');
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.openStorybook();
+      }
+    });
+
+    // ==========================================================================
+    // SUPABASE REAL-TIME DATA PERSISTENCE
+    // ==========================================================================
+    const DEFAULT_SUPABASE_URL = "https://xyzcompany.supabase.co";
+    const DEFAULT_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1aXpvbyIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzA0MDY3MjAwLCJleHAiOjIwMTk2NDMyMDB9.sample";
+
+    let supabaseClient = null;
+
+    function initSupabase() {
+      const url = localStorage.getItem('quizoo_supabase_url') || DEFAULT_SUPABASE_URL;
+      const key = localStorage.getItem('quizoo_supabase_key') || DEFAULT_SUPABASE_KEY;
+      if (window.supabase && window.supabase.createClient && url && key) {
+        try {
+          supabaseClient = window.supabase.createClient(url, key);
+        } catch (e) {
+          console.log('Supabase in offline mode.');
+        }
+      }
+    }
+    initSupabase();
+
+    window.syncProgressToSupabase = async function() {
+      const curName = localStorage.getItem('quizoo_player_name') || (typeof playerName !== 'undefined' ? playerName : 'Explorer');
+      const curPet = localStorage.getItem('quizoo_pet_id') || (typeof activePet !== 'undefined' ? activePet.id : 'fox');
+      const diamonds = parseInt(localStorage.getItem('quizoo_lifetime_diamonds')) || 0;
+      const wins = parseInt(localStorage.getItem('quizoo_lifetime_wins')) || 0;
+      const level = parseInt(localStorage.getItem('quizoo_pet_level')) || 1;
+
+      const record = {
+        player_name: curName,
+        pet_id: curPet,
+        diamonds: diamonds,
+        wins: wins,
+        pet_level: level,
+        updated_at: new Date().toISOString()
+      };
+
+      localStorage.setItem('quizoo_last_sync_record', JSON.stringify(record));
+
+      if (supabaseClient) {
+        try {
+          const { data, error } = await supabaseClient
+            .from('quizoo_players')
+            .upsert(record, { onConflict: 'player_name' });
+          
+          if (!error) {
+            const statusEl = document.getElementById('supabase-sync-status');
+            if (statusEl) statusEl.textContent = '☁️ Synced to Supabase!';
+          }
+        } catch (err) {
+          console.log('Saved to local storage queue.');
+        }
       }
     };
 
@@ -2310,6 +2393,7 @@
         petController.setPet(activePet);
         updateCategoryBadge();
         loadNewPuzzle();
+        if (typeof syncProgressToSupabase === 'function') syncProgressToSupabase();
       };
 
       function updateCategoryBadge() {
@@ -2336,6 +2420,7 @@
         }
 
         updatePetXPUI();
+        if (typeof syncProgressToSupabase === 'function') syncProgressToSupabase();
       }
 
       // Load Puzzle with Adaptive Difficulty Pools
