@@ -447,30 +447,86 @@
       <!-- 4 Core Pet Selection Grid -->
       <div class="w-full flex flex-col gap-1.5">
         <p class="text-xs font-bold text-slate-700 uppercase tracking-wider text-left">Choose Your Pet Companion:</p>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 w-full" id="pet-selection-grid">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 w-full" id="pet-selection-grid">
           
-          <!-- 1. Rusty Fox -->
-          <div class="pet-select-card selected-pet p-2.5 flex flex-col items-center gap-1" data-pet-id="fox" data-pet-name="Rusty the Fox" data-pet-icon="🦊">
-            <span class="text-3xl sm:text-4xl">🦊</span>
-            <span class="text-xs font-extrabold text-slate-800">Rusty</span>
+          <!-- 1. Sparky Dragon -->
+          <div class="pet-select-card relative p-3 rounded-2xl bg-gradient-to-b from-indigo-950 via-purple-900 to-slate-950 border-2 border-amber-300/75 shadow-xl flex flex-col items-center justify-between gap-1.5 cursor-pointer transition-all duration-300 group overflow-hidden" data-pet-id="dragon" data-pet-name="Sparky the Dragon" data-pet-icon="🐉">
+            <div class="pet-selection-glow-bg absolute inset-0 bg-gradient-to-t from-emerald-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <span class="selected-checkmark-badge absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full w-5.5 h-5.5 flex items-center justify-center text-xs font-black shadow-lg border-2 border-white z-10">✓</span>
+            
+            <!-- 3D Avatar Display -->
+            <div class="pet-avatar-wrapper relative my-1 transform group-hover:scale-110 transition-transform duration-300">
+              <div class="text-4xl sm:text-5xl filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.5)] pet-idle-bob inline-block select-none">🐉</div>
+              <span class="absolute -bottom-1 -right-1 text-xs animate-pulse">✨</span>
+            </div>
+
+            <!-- Description Trait Tag -->
+            <span class="text-[10px] text-purple-200 font-bold tracking-tight text-center leading-tight">Chubby Dragon</span>
+
+            <!-- Glossy Yellow Pill Name Badge -->
+            <span class="w-full text-center bg-gradient-to-b from-amber-300 to-amber-500 text-amber-950 font-black text-xs py-1 px-2 rounded-full shadow-md tracking-wider border border-amber-200 uppercase drop-shadow-sm select-none">
+              Sparky
+            </span>
           </div>
 
-          <!-- 2. Sparky Dragon -->
-          <div class="pet-select-card p-2.5 flex flex-col items-center gap-1" data-pet-id="dragon" data-pet-name="Sparky the Dragon" data-pet-icon="🐉">
-            <span class="text-3xl sm:text-4xl">🐉</span>
-            <span class="text-xs font-extrabold text-slate-800">Sparky</span>
+          <!-- 2. Rusty Fox (Default Selected) -->
+          <div class="pet-select-card selected-pet relative p-3 rounded-2xl bg-gradient-to-b from-indigo-950 via-purple-900 to-slate-950 border-2 border-amber-300/75 shadow-xl flex flex-col items-center justify-between gap-1.5 cursor-pointer transition-all duration-300 group overflow-hidden" data-pet-id="fox" data-pet-name="Rusty the Fox" data-pet-icon="🦊">
+            <div class="pet-selection-glow-bg absolute inset-0 bg-gradient-to-t from-amber-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <span class="selected-checkmark-badge absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full w-5.5 h-5.5 flex items-center justify-center text-xs font-black shadow-lg border-2 border-white z-10">✓</span>
+            
+            <!-- 3D Avatar Display -->
+            <div class="pet-avatar-wrapper relative my-1 transform group-hover:scale-110 transition-transform duration-300">
+              <div class="text-4xl sm:text-5xl filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.5)] pet-idle-bob inline-block select-none">🦊</div>
+              <span class="absolute -bottom-1 -right-1 text-xs animate-pulse">✨</span>
+            </div>
+
+            <!-- Description Trait Tag -->
+            <span class="text-[10px] text-purple-200 font-bold tracking-tight text-center leading-tight">Playful Fox</span>
+
+            <!-- Glossy Yellow Pill Name Badge -->
+            <span class="w-full text-center bg-gradient-to-b from-amber-300 to-amber-500 text-amber-950 font-black text-xs py-1 px-2 rounded-full shadow-md tracking-wider border border-amber-200 uppercase drop-shadow-sm select-none">
+              Rusty
+            </span>
           </div>
 
           <!-- 3. Luna Cat -->
-          <div class="pet-select-card p-2.5 flex flex-col items-center gap-1" data-pet-id="cat" data-pet-name="Luna the Cat" data-pet-icon="🐱">
-            <span class="text-3xl sm:text-4xl">🐱</span>
-            <span class="text-xs font-extrabold text-slate-800">Luna</span>
+          <div class="pet-select-card relative p-3 rounded-2xl bg-gradient-to-b from-indigo-950 via-purple-900 to-slate-950 border-2 border-amber-300/75 shadow-xl flex flex-col items-center justify-between gap-1.5 cursor-pointer transition-all duration-300 group overflow-hidden" data-pet-id="cat" data-pet-name="Luna the Cat" data-pet-icon="🐱">
+            <div class="pet-selection-glow-bg absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <span class="selected-checkmark-badge absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full w-5.5 h-5.5 flex items-center justify-center text-xs font-black shadow-lg border-2 border-white z-10">✓</span>
+            
+            <!-- 3D Avatar Display -->
+            <div class="pet-avatar-wrapper relative my-1 transform group-hover:scale-110 transition-transform duration-300">
+              <div class="text-4xl sm:text-5xl filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.5)] pet-idle-bob inline-block select-none">🐱</div>
+              <span class="absolute -top-1 -right-1 text-xs animate-pulse">🌟</span>
+            </div>
+
+            <!-- Description Trait Tag -->
+            <span class="text-[10px] text-purple-200 font-bold tracking-tight text-center leading-tight">Cosmic Kitten</span>
+
+            <!-- Glossy Yellow Pill Name Badge -->
+            <span class="w-full text-center bg-gradient-to-b from-amber-300 to-amber-500 text-amber-950 font-black text-xs py-1 px-2 rounded-full shadow-md tracking-wider border border-amber-200 uppercase drop-shadow-sm select-none">
+              Luna
+            </span>
           </div>
 
           <!-- 4. Buster Pup -->
-          <div class="pet-select-card p-2.5 flex flex-col items-center gap-1" data-pet-id="dog" data-pet-name="Buster the Dog" data-pet-icon="🐶">
-            <span class="text-3xl sm:text-4xl">🐶</span>
-            <span class="text-xs font-extrabold text-slate-800">Buster</span>
+          <div class="pet-select-card relative p-3 rounded-2xl bg-gradient-to-b from-indigo-950 via-purple-900 to-slate-950 border-2 border-amber-300/75 shadow-xl flex flex-col items-center justify-between gap-1.5 cursor-pointer transition-all duration-300 group overflow-hidden" data-pet-id="dog" data-pet-name="Buster the Dog" data-pet-icon="🐶">
+            <div class="pet-selection-glow-bg absolute inset-0 bg-gradient-to-t from-cyan-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <span class="selected-checkmark-badge absolute -top-2 -right-2 bg-emerald-500 text-white rounded-full w-5.5 h-5.5 flex items-center justify-center text-xs font-black shadow-lg border-2 border-white z-10">✓</span>
+            
+            <!-- 3D Avatar Display -->
+            <div class="pet-avatar-wrapper relative my-1 transform group-hover:scale-110 transition-transform duration-300">
+              <div class="text-4xl sm:text-5xl filter drop-shadow-[0_8px_12px_rgba(0,0,0,0.5)] pet-idle-bob inline-block select-none">🐶</div>
+              <span class="absolute -bottom-1 -right-1 text-xs animate-pulse">✨</span>
+            </div>
+
+            <!-- Description Trait Tag -->
+            <span class="text-[10px] text-purple-200 font-bold tracking-tight text-center leading-tight">Golden Puppy</span>
+
+            <!-- Glossy Yellow Pill Name Badge -->
+            <span class="w-full text-center bg-gradient-to-b from-amber-300 to-amber-500 text-amber-950 font-black text-xs py-1 px-2 rounded-full shadow-md tracking-wider border border-amber-200 uppercase drop-shadow-sm select-none">
+              Buster
+            </span>
           </div>
 
         </div>
