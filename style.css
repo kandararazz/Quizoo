@@ -363,3 +363,27 @@
   font-size: 1.3rem;
   filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
 }
+
+/* Background Theme Variants */
+body.bg-theme-purple {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #31104b 100%) !important;
+}
+
+body.bg-theme-space {
+  background: linear-gradient(135deg, #020617 0%, #1e1035 40%, #090d16 100%) !important;
+}
+
+body.bg-theme-jungle {
+  background: linear-gradient(135deg, #022c22 0%, #064e3b 50%, #022c22 100%) !important;
+}
+
+body.bg-theme-underwater {
+  background: linear-gradient(135deg, #082f49 0%, #0c4a6e 50%, #0369a1 100%) !important;
+}
+
+.theme-option-btn.selected-theme {
+  border-color: #f59e0b !important;
+  background-color: #fef3c7 !important;
+  color: #78350f !important;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}

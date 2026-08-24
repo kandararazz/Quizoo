@@ -262,7 +262,14 @@
               +1 WIN! 🏆
             </div>
           </span>
-             <!-- Sound Toggle -->
+        </div>
+
+        <!-- Leaderboard Button -->
+        <button id="leaderboard-btn" title="Global Leaderboard" class="bg-gradient-to-b from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-400 text-amber-950 font-black text-xs sm:text-sm px-3 py-1.5 rounded-2xl shadow-[0_4px_0_#b45309] active:shadow-[0_2px_0_#b45309] active:translate-y-0.5 transition flex items-center gap-1.5 cursor-pointer">
+          🏆 <span class="hidden sm:inline">Leaderboard</span>
+        </button>
+
+        <!-- Sound Toggle -->
         <button id="sound-btn" class="bg-gradient-to-b from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-bold text-xs sm:text-sm px-3.5 py-1.5 rounded-2xl shadow-[0_4px_0_#c2410c] active:shadow-[0_2px_0_#c2410c] active:translate-y-0.5 transition flex items-center gap-1.5 cursor-pointer">
           <span id="sound-icon">🔊</span>
         </button>
@@ -550,11 +557,75 @@
         </div>
       </div>
 
+      <!-- Custom Hub Background Theme Selector -->
+      <div class="w-full flex flex-col gap-2 border-t border-slate-200 pt-3">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider text-left">Pick Hub Background Theme:</p>
+        <div class="grid grid-cols-4 gap-1.5 w-full">
+          <button type="button" class="theme-option-btn selected-theme flex flex-col items-center justify-center p-2 rounded-xl border-2 border-purple-400 bg-purple-100 text-purple-950 font-bold text-xs cursor-pointer transition hover:scale-105" data-theme="purple">
+            <span class="text-base">💜</span>
+            <span class="text-[10px]">Purple</span>
+          </button>
+          <button type="button" class="theme-option-btn flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-200 bg-slate-100 text-slate-700 font-bold text-xs cursor-pointer transition hover:scale-105" data-theme="space">
+            <span class="text-base">🌌</span>
+            <span class="text-[10px]">Space</span>
+          </button>
+          <button type="button" class="theme-option-btn flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-200 bg-slate-100 text-slate-700 font-bold text-xs cursor-pointer transition hover:scale-105" data-theme="jungle">
+            <span class="text-base">🌿</span>
+            <span class="text-[10px]">Jungle</span>
+          </button>
+          <button type="button" class="theme-option-btn flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-200 bg-slate-100 text-slate-700 font-bold text-xs cursor-pointer transition hover:scale-105" data-theme="underwater">
+            <span class="text-base">🌊</span>
+            <span class="text-[10px]">Ocean</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Start Quest Action Button -->
       <button id="start-quest-btn" class="bg-gradient-to-b from-emerald-500 to-emerald-700 hover:from-emerald-400 hover:to-emerald-600 text-white font-extrabold text-lg py-3 rounded-2xl shadow-[0_5px_0_#047857] active:translate-y-0.5 active:shadow-none w-full transition cursor-pointer mt-1">
         Start Quest! 🚀
       </button>
 
+    </div>
+  </div>
+
+  <!-- GLOBAL LEADERBOARD COMING SOON MODAL -->
+  <div id="leaderboard-modal" class="hidden fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-gradient-to-b from-indigo-950 via-purple-950 to-slate-950 rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center shadow-2xl border-4 border-amber-300/80 flex flex-col items-center gap-4 animate-pop relative overflow-hidden">
+      
+      <!-- Close (✕) Button -->
+      <button id="close-leaderboard-btn" class="absolute top-3 right-3 text-purple-300 hover:text-white bg-white/10 hover:bg-white/20 w-8 h-8 rounded-full flex items-center justify-center font-bold text-base transition cursor-pointer">
+        ✕
+      </button>
+
+      <!-- Floating 3D Golden Trophy Icon -->
+      <div class="relative my-2 transform hover:scale-110 transition-transform">
+        <div class="text-6xl sm:text-7xl filter drop-shadow-[0_10px_20px_rgba(250,204,21,0.6)] animate-bounce select-none">
+          🏆
+        </div>
+        <span class="absolute -top-2 -right-2 text-lg animate-pulse">✨</span>
+        <span class="absolute -bottom-1 -left-2 text-lg animate-pulse">🌟</span>
+      </div>
+
+      <!-- Arcade-Style Title & Subtitle -->
+      <div class="flex flex-col items-center gap-2">
+        <h2 class="text-2xl sm:text-3xl font-black bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 bg-clip-text text-transparent tracking-wider uppercase drop-shadow">
+          Global Leaderboard
+        </h2>
+        
+        <span class="bg-gradient-to-r from-amber-500 to-yellow-400 text-amber-950 font-black text-xs px-3.5 py-1 rounded-full shadow-lg tracking-widest uppercase border border-amber-200 animate-pulse">
+          🚀 COMING SOON!
+        </span>
+      </div>
+
+      <!-- Description -->
+      <p class="text-xs sm:text-sm text-purple-200 font-medium leading-relaxed px-2">
+        Compete with Quizoo players around the world! Rank up by earning 💎 Diamonds and winning 🏆 Rounds.
+      </p>
+
+      <!-- Dismiss Button -->
+      <button id="ok-leaderboard-btn" class="w-full bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-amber-950 font-black text-sm py-2.5 px-5 rounded-2xl shadow-[0_4px_0_#b45309] active:translate-y-0.5 active:shadow-none transition cursor-pointer mt-1">
+        Got It! ✨
+      </button>
     </div>
   </div>
 
@@ -1236,6 +1307,56 @@
           triggerRoundCompletion();
         };
       }
+
+      // Leaderboard Modal Handlers
+      const leaderboardBtn = document.getElementById('leaderboard-btn');
+      const leaderboardModal = document.getElementById('leaderboard-modal');
+      const closeLeaderboardBtn = document.getElementById('close-leaderboard-btn');
+      const okLeaderboardBtn = document.getElementById('ok-leaderboard-btn');
+
+      if (leaderboardBtn) {
+        leaderboardBtn.onclick = () => {
+          if (leaderboardModal) leaderboardModal.classList.remove('hidden');
+        };
+      }
+      if (closeLeaderboardBtn) {
+        closeLeaderboardBtn.onclick = () => {
+          if (leaderboardModal) leaderboardModal.classList.add('hidden');
+        };
+      }
+      if (okLeaderboardBtn) {
+        okLeaderboardBtn.onclick = () => {
+          if (leaderboardModal) leaderboardModal.classList.add('hidden');
+        };
+      }
+
+      // Background Hub Theme Manager
+      let selectedTheme = localStorage.getItem('quizoo_background_theme') || 'purple';
+
+      function applyBackgroundTheme(theme) {
+        selectedTheme = theme;
+        document.body.className = `bg-theme-${theme} min-h-screen text-slate-800 font-sans relative overflow-x-hidden p-3 sm:p-6 flex items-center justify-center pb-28 sm:pb-6`;
+        localStorage.setItem('quizoo_background_theme', theme);
+
+        const themeOptionBtns = document.querySelectorAll('.theme-option-btn');
+        themeOptionBtns.forEach(b => {
+          if (b.getAttribute('data-theme') === theme) {
+            b.className = 'theme-option-btn selected-theme flex flex-col items-center justify-center p-2 rounded-xl border-2 border-amber-400 bg-amber-100 text-amber-950 font-bold text-xs cursor-pointer transition hover:scale-105';
+          } else {
+            b.className = 'theme-option-btn flex flex-col items-center justify-center p-2 rounded-xl border-2 border-slate-200 bg-slate-100 text-slate-700 font-bold text-xs cursor-pointer transition hover:scale-105';
+          }
+        });
+      }
+
+      const themeOptionBtns = document.querySelectorAll('.theme-option-btn');
+      themeOptionBtns.forEach(btn => {
+        btn.onclick = () => {
+          const theme = btn.getAttribute('data-theme');
+          applyBackgroundTheme(theme);
+        };
+      });
+
+      applyBackgroundTheme(selectedTheme);
 
       // Handle Sound Toggle
       soundBtn.onclick = () => {
