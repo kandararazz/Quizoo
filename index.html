@@ -741,7 +741,7 @@
   </div>
 
   <!-- QUIZOO OFFICIAL STORYBOOK MODAL -->
-  <div id="storybook-modal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 overflow-y-auto p-4 sm:p-6 flex flex-col items-center">
+  <div id="storybook-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md z-[100] overflow-y-auto p-4 sm:p-6 flex flex-col items-center">
     <!-- PDF / Print Action Bar & Close Button -->
     <div class="no-print w-full max-w-2xl flex justify-between items-center my-3 gap-3">
       <button id="close-storybook-btn" class="bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2.5 rounded-2xl text-sm transition cursor-pointer flex items-center gap-1.5 shadow">
@@ -1900,6 +1900,7 @@
         const heroNamesEl = document.getElementById('storybook-hero-names');
         const petShortName = activePet && activePet.name ? activePet.name.split(' ')[0] : 'Luna';
         if (heroNamesEl) heroNamesEl.textContent = `${playerName || 'Raza'} & ${petShortName}`;
+        storybookModal.style.zIndex = '9999';
         storybookModal.classList.remove('hidden');
       }
 
@@ -1926,8 +1927,9 @@
           underwater: 'linear-gradient(135deg, #082f49 0%, #0c4a6e 50%, #0369a1 100%)'
         };
 
-        document.body.style.background = gradients[theme] || gradients.purple;
-        document.body.style.backgroundImage = gradients[theme] || gradients.purple;
+        const bgVal = gradients[theme] || gradients.purple;
+        document.body.style.setProperty('background', bgVal, 'important');
+        document.body.style.setProperty('background-image', bgVal, 'important');
         document.body.setAttribute('data-theme', theme);
         localStorage.setItem('quizoo_background_theme', theme);
 
