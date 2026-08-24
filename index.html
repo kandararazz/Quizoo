@@ -1651,9 +1651,12 @@
     window.syncProgressToSupabase = async function() {
       const curName = localStorage.getItem('quizoo_player_name') || (typeof playerName !== 'undefined' ? playerName : 'Explorer');
       const curPet = localStorage.getItem('quizoo_pet_id') || (typeof activePet !== 'undefined' ? activePet.id : 'fox');
-      const diamonds = parseInt(localStorage.getItem('quizoo_lifetime_diamonds')) || 0;
-      const wins = parseInt(localStorage.getItem('quizoo_lifetime_wins')) || 0;
-      const level = parseInt(localStorage.getItem('quizoo_pet_level')) || 1;
+      const diamonds = parseInt(localStorage.getItem('quizoo_lifetime_diamonds')) || (typeof lifetimeDiamonds !== 'undefined' ? lifetimeDiamonds : 0);
+      const wins = parseInt(localStorage.getItem('quizoo_lifetime_wins')) || (typeof lifetimeWins !== 'undefined' ? lifetimeWins : 0);
+      const level = parseInt(localStorage.getItem('quizoo_pet_level')) || (typeof petLevel !== 'undefined' ? petLevel : 1);
+      const xp = parseInt(localStorage.getItem('quizoo_pet_xp')) || (typeof petXp !== 'undefined' ? petXp : 0);
+      const category = localStorage.getItem('quizoo_category') || (typeof activeCategory !== 'undefined' ? activeCategory : 'math');
+      const theme = localStorage.getItem('quizoo_background_theme') || 'purple';
 
       const record = {
         player_name: curName,
@@ -1661,6 +1664,9 @@
         diamonds: diamonds,
         wins: wins,
         pet_level: level,
+        pet_xp: xp,
+        active_category: category,
+        background_theme: theme,
         updated_at: new Date().toISOString()
       };
 
@@ -1674,10 +1680,10 @@
           
           if (!error) {
             const statusEl = document.getElementById('supabase-sync-status');
-            if (statusEl) statusEl.textContent = '☁️ Synced to Supabase!';
+            if (statusEl) statusEl.textContent = '☁️ Progress Synced to Supabase!';
           }
         } catch (err) {
-          console.log('Saved to local storage queue.');
+          console.log('Saved locally to sync queue.');
         }
       }
     };
