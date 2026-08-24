@@ -297,3 +297,45 @@
   z-index: 10;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
 }
+
+/* Mobile Responsive Optimization (@media max-width: 640px) */
+@media (max-width: 640px) {
+  .crystal-slot {
+    height: 36px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  .choice-btn {
+    padding: 12px 14px;
+    font-size: 1.1rem;
+    border-radius: 14px;
+  }
+
+  .scramble-box {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    padding: 6px 12px;
+  }
+
+  #floating-pet-widget {
+    bottom: 8px;
+    right: 8px;
+    transform: scale(0.9);
+    transform-origin: bottom right;
+  }
+
+  .speech-bubble-floating {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .pet-select-card {
+    padding: 8px 6px !important;
+  }
+
+  .pet-select-card .pet-avatar-wrapper img {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
