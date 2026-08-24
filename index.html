@@ -339,9 +339,14 @@
     <!-- Main Puzzle Stage Card -->
     <main class="bg-white/95 rounded-3xl p-5 sm:p-7 shadow-2xl border-4 border-indigo-200 flex flex-col gap-5 relative transition-all duration-300" id="puzzle-card">
       
-      <!-- Stage Badge -->
-      <div id="stage-badge" class="self-start bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs sm:text-sm px-4 py-1 rounded-full shadow flex items-center gap-2">
-        ⭐ STAGE 1 OF 8
+      <!-- Stage & Difficulty Badges -->
+      <div class="flex items-center justify-between flex-wrap gap-2 w-full">
+        <div id="stage-badge" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs sm:text-sm px-4 py-1 rounded-full shadow flex items-center gap-2">
+          ⭐ STAGE 1 OF 8
+        </div>
+        <div id="difficulty-badge" class="bg-emerald-500 text-white font-black text-xs px-3 py-1 rounded-full shadow flex items-center gap-1.5 transition-all">
+          🟢 EASY TIER
+        </div>
       </div>
 
       <!-- Question & Visual Box -->
@@ -383,6 +388,7 @@
       <!-- Pet Avatar Container with Accessory Overlay -->
       <div class="pet-avatar-container">
         <span id="sidekick-accessory-overlay" class="accessory-overlay"></span>
+        <span id="sidekick-super-badge" class="super-pet-badge hidden">👑</span>
         <div id="sidekick-pet-avatar" class="text-4xl sm:text-5xl filter drop-shadow pet-idle-bob inline-block transition-transform skin-galaxy-blue">
           🦊
         </div>
@@ -394,8 +400,19 @@
       </span>
     </div>
 
+    <!-- Pet XP & Level Progress Indicator -->
+    <div id="pet-xp-container" class="w-full bg-indigo-950/90 border border-amber-300/50 p-1.5 rounded-2xl shadow-lg mt-1 flex flex-col gap-0.5 min-w-[130px]">
+      <div class="flex items-center justify-between px-1 text-[10px] font-black text-amber-300">
+        <span id="pet-level-label">⭐ Lv.1 Pet</span>
+        <span id="pet-xp-label">0 / 100 XP</span>
+      </div>
+      <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-amber-300/30">
+        <div id="pet-xp-bar-fill" class="bg-gradient-to-r from-amber-400 to-yellow-300 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div>
+
     <!-- Quick Snack Feed Buttons -->
-    <div id="pet-quick-actions" class="flex gap-1.5 mt-2 bg-indigo-950/80 border border-purple-400/40 p-1.5 rounded-2xl shadow-lg">
+    <div id="pet-quick-actions" class="flex gap-1.5 mt-1.5 bg-indigo-950/80 border border-purple-400/40 p-1.5 rounded-2xl shadow-lg">
       <button id="feed-pizza-btn" title="Feed Pizza (5 💎)" class="bg-amber-400 hover:bg-amber-500 active:scale-95 text-amber-950 text-[11px] px-2 py-1 rounded-xl shadow font-black transition flex items-center gap-0.5 cursor-pointer">
         🍕 <span class="hidden sm:inline">5💎</span>
       </button>
@@ -655,50 +672,53 @@
       { id: "m22", q: "What is 10 + 10?", options: ["20", "19", "21", "30"], a: "20", hint: "Two tens!" },
       { id: "m23", q: "What is 7 + 5?", options: ["12", "11", "13", "14"], a: "12", hint: "Two past ten!" },
       { id: "m24", q: "What is 9 + 4?", options: ["13", "12", "14", "15"], a: "13", hint: "Three past ten!" },
-      { id: "m25", q: "What is 8 + 8?", options: ["16", "15", "17", "18"], a: "16", hint: "Double eight!" },
-      { id: "m26", q: "What is 5 - 2?", options: ["3", "2", "4", "1"], a: "3", hint: "Take 2 away from 5!" },
-      { id: "m27", q: "What is 10 - 5?", options: ["5", "4", "6", "3"], a: "5", hint: "Half of ten!" },
-      { id: "m28", q: "What is 8 - 3?", options: ["5", "4", "6", "7"], a: "5", hint: "Take 3 from 8!" },
-      { id: "m29", q: "What is 6 - 4?", options: ["2", "3", "1", "4"], a: "2", hint: "Take 4 from 6!" },
-      { id: "m30", q: "What is 9 - 1?", options: ["8", "7", "9", "6"], a: "8", hint: "Number before 9!" },
-      { id: "m31", q: "What is 7 - 3?", options: ["4", "3", "5", "2"], a: "4", hint: "Take 3 from 7!" },
-      { id: "m32", q: "What is 10 - 2?", options: ["8", "7", "9", "6"], a: "8", hint: "Two less than 10!" },
-      { id: "m33", q: "What is 4 - 2?", options: ["2", "1", "3", "0"], a: "2", hint: "Half of 4!" },
-      { id: "m34", q: "What is 8 - 4?", options: ["4", "3", "5", "6"], a: "4", hint: "Half of 8!" },
-      { id: "m35", q: "What is 6 - 3?", options: ["3", "2", "4", "5"], a: "3", hint: "Half of 6!" },
-      { id: "m36", q: "What is 10 - 7?", options: ["3", "4", "2", "5"], a: "3", hint: "Count 7 up to 10!" },
-      { id: "m37", q: "What is 9 - 5?", options: ["4", "3", "5", "6"], a: "4", hint: "Take 5 from 9!" },
-      { id: "m38", q: "What is 7 - 5?", options: ["2", "3", "1", "4"], a: "2", hint: "Difference of 7 and 5!" },
-      { id: "m39", q: "What is 12 - 2?", options: ["10", "9", "11", "8"], a: "10", hint: "Drop the 2!" },
-      { id: "m40", q: "What is 15 - 5?", options: ["10", "11", "9", "8"], a: "10", hint: "Leaves a ten!" }
+    // CATEGORIZED PUZZLE POOLS (EASY ➔ MEDIUM ➔ PRO)
+    const easyMath = [
+      { id: "em1", q: "What is 2 + 3?", options: ["5", "6", "4", "7"], a: "5", hint: "Count 3 up from 2!" },
+      { id: "em2", q: "What is 4 + 4?", options: ["8", "7", "9", "6"], a: "8", hint: "Double four!" },
+      { id: "em3", q: "What is 5 + 5?", options: ["10", "9", "11", "15"], a: "10", hint: "Fingers on both hands!" },
+      { id: "em4", q: "What is 6 + 2?", options: ["8", "7", "9", "10"], a: "8", hint: "Two more than 6!" },
+      { id: "em5", q: "What is 5 - 2?", options: ["3", "2", "4", "1"], a: "3", hint: "Take 2 from 5!" },
+      { id: "em6", q: "What is 7 - 3?", options: ["4", "3", "5", "2"], a: "4", hint: "Take 3 from 7!" }
     ];
 
-    // 100 LETTER & WORD QUIZ PUZZLES
-    const letterPuzzles100 = [
-      { id: "l1", q: "Fill in the blank: A, B, C, __, E", options: ["D", "F", "G", "H"], a: "D", hint: "Sounds like Dog!" },
-      { id: "l2", q: "Fill in the blank: H, I, J, __, L", options: ["K", "M", "N", "O"], a: "K", hint: "Sounds like Kite!" },
-      { id: "l3", q: "Fill in the blank: P, Q, R, __, T", options: ["S", "U", "V", "W"], a: "S", hint: "Sounds like Sun!" },
-      { id: "l4", q: "Fill in the blank: U, V, W, __, Y", options: ["X", "Z", "T", "S"], a: "X", hint: "Comes before Y!" },
-      { id: "l5", q: "What is the 1st letter of the alphabet?", options: ["A", "B", "Z", "M"], a: "A", hint: "Starts Apple!" },
-      { id: "l6", q: "What is the last letter of the alphabet?", options: ["Z", "Y", "X", "W"], a: "Z", hint: "Starts Zebra!" },
-      { id: "l7", q: "Fill in the vowel: C __ T 🐱", options: ["A", "E", "I", "U"], a: "A", hint: "Purring pet!" },
-      { id: "l8", q: "Fill in the vowel: D __ G 🐶", options: ["O", "A", "E", "U"], a: "O", hint: "Barking pet!" },
-      { id: "l9", q: "Fill in the vowel: S __ N ☀️", options: ["U", "E", "A", "O"], a: "U", hint: "Star in day sky!" },
-      { id: "l10", q: "Fill in the vowel: B __ D 🛏️", options: ["E", "A", "O", "U"], a: "E", hint: "Where you sleep!" },
-      { id: "l11", q: "Fill in the vowel: P __ G 🐷", options: ["I", "A", "E", "U"], a: "I", hint: "Pink farm animal!" },
-      { id: "l12", q: "Which letter starts 'Elephant'?", options: ["E", "A", "I", "O"], a: "E", hint: "Letter E!" },
-      { id: "l13", q: "Which letter starts 'Monkey'?", options: ["M", "N", "W", "V"], a: "M", hint: "Letter M!" },
-      { id: "l14", q: "Which letter starts 'Rainbow'?", options: ["R", "B", "P", "D"], a: "R", hint: "Letter R!" },
-      { id: "l15", q: "Which letter starts 'Tiger'?", options: ["T", "D", "P", "F"], a: "T", hint: "Letter T!" },
-      { id: "l16", q: "Which of these is a VOWEL?", options: ["E", "B", "T", "M"], a: "E", hint: "A, E, I, O, U!" },
-      { id: "l17", q: "Which of these is a VOWEL?", options: ["O", "K", "L", "R"], a: "O", hint: "Round vowel!" },
-      { id: "l18", q: "What letter comes right after 'M'?", options: ["N", "L", "O", "P"], a: "N", hint: "M, then N!" },
-      { id: "l19", q: "What letter comes right before 'Z'?", options: ["Y", "X", "W", "V"], a: "Y", hint: "Second to last!" },
-      { id: "l20", q: "Unscramble: T A R S 🌟", options: ["STAR", "RATS", "ARTS", "TARS"], a: "STAR", hint: "Shines in space!" },
-      { id: "l21", q: "Unscramble: O O N M 🌙", options: ["MOON", "MONO", "NOON", "MOONK"], a: "MOON", hint: "Night sky orb!" },
-      { id: "l22", q: "Unscramble: E E R T 🌳", options: ["TREE", "TEER", "REET", "FREE"], a: "TREE", hint: "Has green leaves!" },
-      { id: "l23", q: "Unscramble: O K O B 📚", options: ["BOOK", "COOK", "LOOK", "HOOK"], a: "BOOK", hint: "Read stories!" },
-      { id: "l24", q: "Unscramble: K I M L 🥛", options: ["MILK", "LIMK", "KLIM", "MICK"], a: "MILK", hint: "White drink!" }
+    const mediumMath = [
+      { id: "mm1", q: "What is 12 + 15?", options: ["27", "25", "29", "30"], a: "27", hint: "Add tens then ones!" },
+      { id: "mm2", q: "What is 24 + 18?", options: ["42", "40", "44", "38"], a: "42", hint: "24 plus 18!" },
+      { id: "mm3", q: "What is 35 - 12?", options: ["23", "21", "25", "22"], a: "23", hint: "Take 12 from 35!" },
+      { id: "mm4", q: "What is 50 - 15?", options: ["35", "30", "40", "38"], a: "35", hint: "Subtract 15 from 50!" },
+      { id: "mm5", q: "What is 16 + 14?", options: ["30", "28", "32", "34"], a: "30", hint: "Equals thirty!" }
+    ];
+
+    const proMath = [
+      { id: "pm1", q: "What is 14 + 18?", options: ["32", "30", "34", "28"], a: "32", hint: "14 plus 18!" },
+      { id: "pm2", q: "What is 45 - 17?", options: ["28", "26", "30", "25"], a: "28", hint: "45 minus 17!" },
+      { id: "pm3", q: "What is 3 × 4?", options: ["12", "10", "14", "16"], a: "12", hint: "Three groups of 4!" },
+      { id: "pm4", q: "What is 5 × 5?", options: ["25", "20", "30", "15"], a: "25", hint: "Five times five!" },
+      { id: "pm5", q: "If Raza has 8 apples and gets 7 more, how many are there?", options: ["15", "14", "16", "13"], a: "15", hint: "8 + 7!" },
+      { id: "pm6", q: "If Luna collects 12 diamonds and spends 5, how many are left?", options: ["7", "6", "8", "9"], a: "7", hint: "12 - 5!" }
+    ];
+
+    const easyLetters = [
+      { id: "el1", q: "Fill in the blank: A, B, C, __, E", options: ["D", "F", "G", "H"], a: "D", hint: "Sounds like Dog!" },
+      { id: "el2", q: "Fill in the vowel: C __ T 🐱", options: ["A", "E", "I", "U"], a: "A", hint: "Purring pet!" },
+      { id: "el3", q: "Fill in the vowel: D __ G 🐶", options: ["O", "A", "E", "U"], a: "O", hint: "Barking pet!" },
+      { id: "el4", q: "What is the 1st letter of the alphabet?", options: ["A", "B", "Z", "M"], a: "A", hint: "Starts Apple!" }
+    ];
+
+    const mediumLetters = [
+      { id: "ml1", q: "Unscramble: T A R S 🌟", options: ["STAR", "RATS", "ARTS", "TARS"], a: "STAR", hint: "Shines in space!" },
+      { id: "ml2", q: "Unscramble: O O N M 🌙", options: ["MOON", "MONO", "NOON", "MOONK"], a: "MOON", hint: "Night sky orb!" },
+      { id: "ml3", q: "Unscramble: E E R T 🌳", options: ["TREE", "TEER", "REET", "FREE"], a: "TREE", hint: "Has green leaves!" },
+      { id: "ml4", q: "Unscramble: O K O B 📚", options: ["BOOK", "COOK", "LOOK", "HOOK"], a: "BOOK", hint: "Read stories!" }
+    ];
+
+    const proLetters = [
+      { id: "pl1", q: "Unscramble: P L A N E T 🪐", options: ["PLANET", "PLANTE", "PELANT", "PLATES"], a: "PLANET", hint: "Orbits a star!" },
+      { id: "pl2", q: "Unscramble: D R A G O N 🐉", options: ["DRAGON", "DARGON", "DRAGNO", "GARDON"], a: "DRAGON", hint: "Mythical pet!" },
+      { id: "pl3", q: "Unscramble: W I Z A R D 🧙", options: ["WIZARD", "ZAWIRD", "WIZRAD", "WIDZAR"], a: "WIZARD", hint: "Casts magic!" },
+      { id: "pl4", q: "Unscramble: F L O W E R 🌸", options: ["FLOWER", "FLOWRE", "FLOREW", "FOWLER"], a: "FLOWER", hint: "Blooms in spring!" },
+      { id: "pl5", q: "Which word means 'Very Large'?", options: ["HUGE", "TINY", "SMALL", "LITTLE"], a: "HUGE", hint: "Giant size!" }
     ];
 
     // PET DICTIONARY
@@ -709,13 +729,17 @@
       dog: { id: "dog", name: "Buster the Dog", icon: "🐶" }
     };
 
-    // GAME STATE
+    // GAME STATE & PERSISTED PROGRESSION
     let playerName = localStorage.getItem('quizoo_player_name') || "Raza";
     let activePet = PET_DICTIONARY[localStorage.getItem('quizoo_pet_id')] || PET_DICTIONARY.fox;
     let activeCategory = localStorage.getItem('quizoo_category') || "math";
     let lifetimeDiamonds = parseInt(localStorage.getItem('quizoo_lifetime_diamonds')) || 0;
     let lifetimeWins = parseInt(localStorage.getItem('quizoo_lifetime_wins')) || 0;
     
+    let currentDifficulty = 'easy'; // 'easy' | 'medium' | 'pro'
+    let petXp = parseInt(localStorage.getItem('quizoo_pet_xp')) || 0;
+    let petLevel = parseInt(localStorage.getItem('quizoo_pet_level')) || 1;
+
     let currentRoundDiamonds = 0; // 0 to 8
     let currentPuzzle = null;
     let isMuted = false;
@@ -920,6 +944,7 @@
       updateStatsUI();
       petController.init(activePet);
       updatePetAppearance();
+      updatePetXPUI();
       startIdleTimer();
 
       // Sound FX helper for purrs / synth
@@ -982,6 +1007,8 @@
           avatarEl.classList.remove('skin-galaxy-blue', 'skin-neon-gold', 'skin-rainbow-sparkle');
           avatarEl.classList.add(equippedSkin || 'skin-galaxy-blue');
         }
+
+        updatePetXPUI();
       }
 
       // PET CARE: TAPPING & HEARTS
@@ -1072,10 +1099,23 @@
         petController.say(`Yay! I'm awake and ready, ${playerName}! ☀️`, 'correct');
       }
 
-      // STREAKS & MULTIPLIERS
+      // STREAKS, MULTIPLIERS & ADAPTIVE DIFFICULTY
       function updateStreak(isCorrect) {
         if (isCorrect) {
           currentStreak++;
+
+          // Adaptive Difficulty Upgrade
+          if (currentStreak >= 3) {
+            if (currentDifficulty === 'easy') {
+              currentDifficulty = 'medium';
+              petController.say(`Awesome! Upgraded to 🟡 MEDIUM Difficulty!`, 'correct');
+            } else if (currentDifficulty === 'medium') {
+              currentDifficulty = 'pro';
+              petController.say(`Incredible! Upgraded to 🔴 PRO Difficulty!`, 'correct');
+            }
+          }
+
+          updateDifficultyBadgeUI();
 
           if (currentStreak >= 3) {
             if (streakBadgeEl) streakBadgeEl.classList.remove('hidden');
@@ -1087,10 +1127,76 @@
 
         } else {
           currentStreak = 0;
+          if (currentDifficulty === 'pro') {
+            currentDifficulty = 'medium';
+          }
+          updateDifficultyBadgeUI();
+
           if (streakBadgeEl) streakBadgeEl.classList.add('hidden');
           if (sidekickPetCard) sidekickPetCard.classList.remove('fire-aura-anim');
           return 1;
         }
+      }
+
+      function updateDifficultyBadgeUI() {
+        const badge = document.getElementById('difficulty-badge');
+        if (!badge) return;
+        if (currentDifficulty === 'easy') {
+          badge.className = 'bg-emerald-500 text-white font-black text-xs px-3 py-1 rounded-full shadow flex items-center gap-1.5 transition-all';
+          badge.textContent = '🟢 EASY TIER';
+        } else if (currentDifficulty === 'medium') {
+          badge.className = 'bg-amber-500 text-white font-black text-xs px-3 py-1 rounded-full shadow flex items-center gap-1.5 transition-all';
+          badge.textContent = '🟡 MEDIUM TIER';
+        } else {
+          badge.className = 'bg-rose-600 text-white font-black text-xs px-3 py-1 rounded-full shadow flex items-center gap-1.5 transition-all animate-pulse';
+          badge.textContent = '🔴 PRO TIER';
+        }
+      }
+
+      // PET LEVEL & XP SYSTEM
+      function gainPetXP(amount) {
+        petXp += amount;
+        const xpForLevel = 100;
+        
+        if (petXp >= xpForLevel) {
+          petXp -= xpForLevel;
+          petLevel += 1;
+          playSoundEffect('purr');
+
+          if (petLevel >= 5) {
+            triggerSuperEvolution();
+          } else {
+            petController.say(`Level Up! ${activePet.name} reached ⭐ Level ${petLevel}! 🎉`, 'correct');
+          }
+        }
+
+        localStorage.setItem('quizoo_pet_xp', petXp);
+        localStorage.setItem('quizoo_pet_level', petLevel);
+        updatePetXPUI();
+      }
+
+      function updatePetXPUI() {
+        const levelLabel = document.getElementById('pet-level-label');
+        const xpLabel = document.getElementById('pet-xp-label');
+        const fillEl = document.getElementById('pet-xp-bar-fill');
+        const superBadge = document.getElementById('sidekick-super-badge');
+
+        if (levelLabel) levelLabel.textContent = petLevel >= 5 ? `👑 Super Lv.${petLevel}` : `⭐ Lv.${petLevel}`;
+        if (xpLabel) xpLabel.textContent = `${petXp} / 100 XP`;
+        if (fillEl) fillEl.style.width = `${Math.min(100, (petXp / 100) * 100)}%`;
+
+        if (petLevel >= 5) {
+          if (superBadge) superBadge.classList.remove('hidden');
+          if (sidekickPetCard) sidekickPetCard.classList.add('super-pet-evolution');
+        }
+      }
+
+      function triggerSuperEvolution() {
+        if (typeof confetti === 'function') {
+          confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
+        }
+        petController.say(`🌟 SUPER EVOLUTION! ${activePet.name} evolved to Champion Level 5! 👑✨`, 'correct');
+        updatePetXPUI();
       }
 
       // TREASURE VAULT MINIGAME (AFTER 8 STAGES)
@@ -1123,13 +1229,6 @@
           }
         };
       });
-
-      if (claimChestRewardBtn) {
-        claimChestRewardBtn.onclick = () => {
-          treasureVaultModal.classList.add('hidden');
-          triggerRoundCompletion();
-        };
-      }
 
       if (claimChestRewardBtn) {
         claimChestRewardBtn.onclick = () => {
@@ -1213,22 +1312,36 @@
             else slot.classList.remove('collected');
           }
         }
+
+        updatePetXPUI();
       }
 
-      // Load Puzzle
+      // Load Puzzle with Adaptive Difficulty Pools
       function loadNewPuzzle() {
         wandUsedForCurrentPuzzle = false;
         if (wandBtn) wandBtn.disabled = false;
 
-        let pool = mathPuzzles100;
-        if (activeCategory === 'letter') pool = letterPuzzles100;
-        else if (activeCategory === 'mixed') pool = [...mathPuzzles100, ...letterPuzzles100];
+        let pool = easyMath;
+        if (activeCategory === 'math') {
+          if (currentDifficulty === 'easy') pool = easyMath;
+          else if (currentDifficulty === 'medium') pool = mediumMath;
+          else pool = proMath;
+        } else if (activeCategory === 'letter') {
+          if (currentDifficulty === 'easy') pool = easyLetters;
+          else if (currentDifficulty === 'medium') pool = mediumLetters;
+          else pool = proLetters;
+        } else { // mixed
+          if (currentDifficulty === 'easy') pool = [...easyMath, ...easyLetters];
+          else if (currentDifficulty === 'medium') pool = [...mediumMath, ...mediumLetters];
+          else pool = [...proMath, ...proLetters];
+        }
 
         currentPuzzle = pool[Math.floor(Math.random() * pool.length)];
 
-        // Update Stage & Question
+        // Update Stage & Question & Difficulty Badge
         if (stageBadgeEl) stageBadgeEl.textContent = `⭐ STAGE ${currentRoundDiamonds + 1} OF 8`;
         if (puzzleQuestionEl) puzzleQuestionEl.textContent = currentPuzzle.q;
+        updateDifficultyBadgeUI();
 
         // Render Visual Box
         if (puzzleVisualEl) {
@@ -1278,6 +1391,9 @@
 
           // Streak & Multiplier
           const diamondMultiplier = updateStreak(true);
+
+          // Gain Pet XP (+20 XP per correct answer)
+          gainPetXP(20);
 
           // Confetti Celebration
           if (typeof confetti === 'function') {

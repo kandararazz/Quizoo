@@ -339,3 +339,27 @@
     height: 48px !important;
   }
 }
+
+/* Level 5 Super Pet Evolution Aura */
+@keyframes superEvolutionGlow {
+  0%, 100% {
+    box-shadow: 0 0 25px #facc15, 0 0 45px #f59e0b, inset 0 0 15px #fef08a;
+    border-color: #facc15 !important;
+  }
+  50% {
+    box-shadow: 0 0 35px #38bdf8, 0 0 60px #facc15, inset 0 0 25px #38bdf8;
+    border-color: #38bdf8 !important;
+  }
+}
+
+.super-pet-evolution {
+  animation: superEvolutionGlow 2s ease-in-out infinite !important;
+}
+
+.super-pet-badge {
+  position: absolute;
+  top: -16px;
+  right: -10px;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+}
