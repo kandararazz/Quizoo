@@ -290,8 +290,6 @@
       <button id="change-category-btn" class="bg-white/20 hover:bg-white/30 text-white font-bold text-xs px-3.5 py-1.5 rounded-xl transition flex items-center gap-1.5 cursor-pointer">
         ⚙️ Setup & Pet
       </button>
-    </section>0%</span>
-      </div>
     </section>
 
     <!-- Glowing Diamond Progress Bar -->
@@ -1240,10 +1238,16 @@
             const word = match ? match[1].trim() : 'WORD';
             puzzleVisualEl.innerHTML = `<div class="scramble-box">${word}</div>`;
           } else {
-            // Friendly Emojis
-            const emojis = ['🌟', '💎', '🍎', '🎈', '⭐', '🚀', '🎨', '🧩'];
-            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
-            puzzleVisualEl.innerHTML = `<span class="animate-bounce">${randomEmoji}</span> <span class="text-indigo-950 font-black">${currentPuzzle.q}</span>`;
+            // Animated Visual Emojis
+            const emojiSets = [
+              ['🌟', '✨', '⭐'],
+              ['🍎', '🍏', '🍊'],
+              ['💎', '👑', '🏆'],
+              ['🎈', '🎉', '🎊'],
+              ['🚀', '🛸', '🛰️']
+            ];
+            const randomSet = emojiSets[Math.floor(Math.random() * emojiSets.length)];
+            puzzleVisualEl.innerHTML = randomSet.map(item => `<span class="animate-bounce inline-block text-4xl mx-1">${item}</span>`).join('');
           }
         }
 
