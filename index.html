@@ -753,12 +753,15 @@
     </div>
 
     <!-- Story Library Selector Tabs -->
-    <div class="no-print w-full max-w-2xl flex gap-2 justify-center my-2">
-      <button type="button" id="tab-book1" class="story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-4 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5" onclick="switchStoryBook(1)">
+    <div class="no-print w-full max-w-2xl flex flex-wrap gap-2 justify-center my-2">
+      <button type="button" id="tab-book1" class="story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-3.5 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5" onclick="switchStoryBook(1)">
         🐱 Book 1: Whispering Seed
       </button>
-      <button type="button" id="tab-book2" class="story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5" onclick="switchStoryBook(2)">
-        🐉 Book 2: Whispering Cave (30 Pages)
+      <button type="button" id="tab-book2" class="story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-3.5 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5" onclick="switchStoryBook(2)">
+        🐉 Book 2: Whispering Cave
+      </button>
+      <button type="button" id="tab-book3" class="story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-3.5 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5" onclick="switchStoryBook(3)">
+        🐶 Book 3: Clockwork Robot (30 Pages)
       </button>
     </div>
 
@@ -1224,6 +1227,306 @@
       </div>
       <!-- END BOOK 2 -->
 
+      <!-- BOOK 3: BUSTER AND THE BROKEN CLOCKWORK ROBOT (30 PAGES) -->
+      <div id="book-content-3" class="w-full space-y-8 hidden">
+
+        <!-- COVER PAGE -->
+        <div class="book-page page-break bg-gradient-to-b from-amber-950 via-amber-900 to-slate-950 text-white p-8 sm:p-10 rounded-3xl shadow-2xl border-4 border-amber-400 flex flex-col items-center text-center justify-between min-h-[700px]">
+          <div class="w-full">
+            <span class="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
+              Quizoo Official Storybook • Book 3
+            </span>
+            <h1 class="text-3xl sm:text-4xl font-black mt-6 text-amber-300 leading-tight">
+              Buster & The Broken Clockwork Robot
+            </h1>
+            <p class="text-amber-200 text-sm mt-2">A Story About Trying Again</p>
+          </div>
+
+          <!-- Cover Illustration -->
+          <div class="w-full my-6 flex justify-center">
+            <svg viewBox="0 0 320 160" class="w-full max-w-sm">
+              <!-- Beach & Lighthouse Base -->
+              <path d="M 0 130 Q 160 110 320 130 L 320 160 L 0 160 Z" fill="#D97706"/>
+              <rect x="140" y="50" width="40" height="70" fill="#94A3B8" stroke="#F59E0B" stroke-width="2"/>
+              <!-- Robot Bolt -->
+              <rect x="90" y="80" width="30" height="35" rx="6" fill="#CBD5E1"/>
+              <circle cx="105" cy="70" r="10" fill="#94A3B8"/>
+              <!-- Buster Puppy -->
+              <circle cx="210" cy="100" r="18" fill="#F59E0B"/>
+              <ellipse cx="198" cy="102" rx="5" ry="12" fill="#B45309"/>
+              <ellipse cx="222" cy="102" rx="5" ry="12" fill="#B45309"/>
+            </svg>
+          </div>
+
+          <div class="w-full border-t border-amber-500/40 pt-4 text-xs text-amber-300 flex justify-between items-center">
+            <span>Starring: <strong><span class="storybook-player-name">Explorer</span> & Buster (with Bolt)</strong></span>
+            <span>30 Interactive Pages</span>
+          </div>
+        </div>
+
+        <!-- SECTION 1: PAGES 1-5 (Gear Island & Challenge 1) -->
+        <div class="book-page page-break bg-white p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col justify-between min-h-[700px]">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-slate-400 border-b pb-3">
+              <span>CHAPTER 1</span>
+              <span>PAGES 1 - 5</span>
+            </div>
+            <h2 class="text-2xl font-black text-amber-950 mt-4">The Sandy Hills of Gear Island</h2>
+          </div>
+
+          <!-- Section 1 Illustration -->
+          <div class="my-3 bg-slate-900 rounded-2xl p-4 flex justify-center">
+            <svg viewBox="0 0 360 110" class="w-full max-w-md">
+              <path d="M 0 80 Q 180 50 360 80 L 360 110 L 0 110 Z" fill="#D97706"/>
+              <circle cx="70" cy="65" r="14" fill="#F59E0B"/>
+              <rect x="220" y="60" width="24" height="26" rx="4" fill="#94A3B8"/>
+            </svg>
+          </div>
+
+          <div class="space-y-3 text-sm sm:text-base leading-relaxed text-slate-700">
+            <p><strong>Page 1:</strong> The morning breeze blew across the sandy hills of Gear Island.</p>
+            <p><strong>Page 2:</strong> <span class="storybook-player-name">Explorer</span> tied the laces on a pair of brown explorer boots, ready for a new quest.</p>
+            <p><strong>Page 3:</strong> Buster the playful puppy ran ahead, his long golden ears flapping in the wind.</p>
+            <p><strong>Page 4:</strong> Near the edge of the dunes sat a small brass robot with its head tilted down.</p>
+            <p><strong>Page 5:</strong> The robot had numbers carved into its front dial.</p>
+
+            <!-- Challenge 1 Box -->
+            <div class="p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl">
+              <p class="font-extrabold text-amber-900 text-sm">🧩 Challenge 1: Identifying Numbers</p>
+              <p class="text-xs sm:text-sm text-amber-800 mt-1">Which number is <strong>greater than 6</strong>?</p>
+              <div class="flex gap-2 mt-2">
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, '4 is less than 6!')">4</button>
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, '5 is less than 6!')">5</button>
+                <button type="button" class="story-choice-btn bg-amber-500 text-amber-950 font-black px-4 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, true, 'Buster barks happily: &quot;<span class=&quot;storybook-player-name&quot;>Explorer</span>, good job! The dial turned!&quot;')">Answer: 8 ✓</button>
+              </div>
+              <p class="story-feedback text-xs font-bold text-amber-800 mt-2 italic">Buster barks happily: "<span class="storybook-player-name">Explorer</span>, good job! The dial turned!"</p>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-400 pt-3 border-t">
+            Quizoo Storybook Adventures • Buster & The Broken Clockwork Robot
+          </div>
+        </div>
+
+        <!-- SECTION 2: PAGES 6-10 (Meeting Bolt & Challenge 2) -->
+        <div class="book-page page-break bg-white p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col justify-between min-h-[700px]">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-slate-400 border-b pb-3">
+              <span>CHAPTER 2</span>
+              <span>PAGES 6 - 10</span>
+            </div>
+            <h2 class="text-2xl font-black text-indigo-950 mt-4">Meeting Bolt the Robot</h2>
+          </div>
+
+          <!-- Section 2 Illustration -->
+          <div class="my-3 bg-slate-900 rounded-2xl p-4 flex justify-center">
+            <svg viewBox="0 0 360 110" class="w-full max-w-md">
+              <circle cx="180" cy="50" r="20" fill="#CBD5E1"/>
+              <circle cx="173" cy="46" r="3" fill="#38BDF8"/>
+              <circle cx="187" cy="46" r="3" fill="#38BDF8"/>
+              <rect x="165" y="70" width="30" height="30" rx="5" fill="#64748B"/>
+            </svg>
+          </div>
+
+          <div class="space-y-3 text-sm sm:text-base leading-relaxed text-slate-700">
+            <p><strong>Page 6:</strong> The little robot lifted its shiny metal hands with a quiet whirrr... click.</p>
+            <p><strong>Page 7:</strong> "My name is Bolt," beeped the robot sadly. "I tried to build the island lighthouse, but my gears slipped and I gave up."</p>
+            <p><strong>Page 8:</strong> "Mistakes are just steps to learning," <span class="storybook-player-name">Explorer</span> said with a warm smile. "We can fix it together."</p>
+            <p><strong>Page 9:</strong> Buster nudged Bolt’s metal knee with a wet, encouraging nose.</p>
+            <p><strong>Page 10:</strong> They needed to gather pieces of wood to build the tower ladder.</p>
+
+            <!-- Challenge 2 Box -->
+            <div class="p-4 bg-indigo-50 border-2 border-indigo-300 rounded-2xl">
+              <p class="font-extrabold text-indigo-900 text-sm">🧩 Challenge 2: Measuring Planks</p>
+              <p class="text-xs sm:text-sm text-indigo-800 mt-1">Count the planks: <strong>5 + 4 = ?</strong></p>
+              <div class="flex gap-2 mt-2">
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, '5 plus 4 equals 9!')">8</button>
+                <button type="button" class="story-choice-btn bg-indigo-600 text-white font-black px-4 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, true, 'Buster wags his tail: &quot;<span class=&quot;storybook-player-name&quot;>Explorer</span>, good job! We have enough wood!&quot;')">Answer: 9 planks ✓</button>
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, '5 plus 4 equals 9!')">10</button>
+              </div>
+              <p class="story-feedback text-xs font-bold text-indigo-700 mt-2 italic">Buster wags his tail: "<span class="storybook-player-name">Explorer</span>, good job! We have enough wood!"</p>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-400 pt-3 border-t">
+            Quizoo Storybook Adventures • Buster & The Broken Clockwork Robot
+          </div>
+        </div>
+
+        <!-- SECTION 3: PAGES 11-15 (Trying One More Time & Challenge 3) -->
+        <div class="book-page page-break bg-white p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col justify-between min-h-[700px]">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-slate-400 border-b pb-3">
+              <span>CHAPTER 3</span>
+              <span>PAGES 11 - 15</span>
+            </div>
+            <h2 class="text-2xl font-black text-amber-950 mt-4">Trying One More Time</h2>
+          </div>
+
+          <!-- Section 3 Illustration -->
+          <div class="my-3 bg-slate-900 rounded-2xl p-4 flex justify-center">
+            <svg viewBox="0 0 360 110" class="w-full max-w-md">
+              <rect x="140" y="30" width="80" height="70" fill="#78350F" stroke="#F59E0B" stroke-width="2"/>
+              <line x1="160" y1="30" x2="160" y2="100" stroke="#B45309" stroke-width="3"/>
+              <line x1="200" y1="30" x2="200" y2="100" stroke="#B45309" stroke-width="3"/>
+            </svg>
+          </div>
+
+          <div class="space-y-3 text-sm sm:text-base leading-relaxed text-slate-700">
+            <p><strong>Page 11:</strong> <span class="storybook-player-name">Explorer</span> stacked the wooden planks neatly near the base of the stone tower.</p>
+            <p><strong>Page 12:</strong> Bolt picked up a small brass wrench, his hands shaking slightly.</p>
+            <p><strong>Page 13:</strong> "What if I drop a bolt again?" asked Bolt softly.</p>
+            <p><strong>Page 14:</strong> "Then we pick it back up and try one more time," answered <span class="storybook-player-name">Explorer</span>.</p>
+            <p><strong>Page 15:</strong> The lesson of persistence.</p>
+
+            <!-- Challenge 3 Box -->
+            <div class="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl">
+              <p class="font-extrabold text-emerald-900 text-sm">🧩 Challenge 3: Word Opposites</p>
+              <p class="text-xs sm:text-sm text-emerald-800 mt-1">What is the opposite of the word <strong>GIVE UP</strong>?</p>
+              <div class="flex gap-2 mt-2">
+                <button type="button" class="story-choice-btn bg-emerald-600 text-white font-black px-4 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, true, 'Buster jumps up: &quot;<span class=&quot;storybook-player-name&quot;>Explorer</span>, good job! Never give up!&quot;')">Answer: TRY ✓</button>
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, 'Opposite of GIVE UP is TRY!')">RUN</button>
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, 'Opposite of GIVE UP is TRY!')">STOP</button>
+              </div>
+              <p class="story-feedback text-xs font-bold text-emerald-700 mt-2 italic">Buster jumps up: "<span class="storybook-player-name">Explorer</span>, good job! Never give up!"</p>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-400 pt-3 border-t">
+            Quizoo Storybook Adventures • Buster & The Broken Clockwork Robot
+          </div>
+        </div>
+
+        <!-- SECTION 4: PAGES 16-20 (Rebuilding & Challenge 4) -->
+        <div class="book-page page-break bg-white p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col justify-between min-h-[700px]">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-slate-400 border-b pb-3">
+              <span>CHAPTER 4</span>
+              <span>PAGES 16 - 20</span>
+            </div>
+            <h2 class="text-2xl font-black text-cyan-950 mt-4">Rebuilding the Lighthouse</h2>
+          </div>
+
+          <!-- Section 4 Illustration -->
+          <div class="my-3 bg-slate-900 rounded-2xl p-4 flex justify-center">
+            <svg viewBox="0 0 360 110" class="w-full max-w-md">
+              <path d="M 0 50 Q 180 80 360 50" fill="none" stroke="#38BDF8" stroke-width="4"/>
+              <rect x="150" y="30" width="60" height="70" fill="#475569"/>
+            </svg>
+          </div>
+
+          <div class="space-y-3 text-sm sm:text-base leading-relaxed text-slate-700">
+            <p><strong>Page 16:</strong> Bolt tightened the first silver screw on the lighthouse base: Turn, turn, click!</p>
+            <p><strong>Page 17:</strong> Buster carried a small basket of gears in his mouth, setting it down gently.</p>
+            <p><strong>Page 18:</strong> A strong gust of ocean wind blew across the beach, knocking over three wooden beams.</p>
+            <p><strong>Page 19:</strong> Bolt looked down at the fallen beams, ready to frown.</p>
+            <p><strong>Page 20:</strong> <span class="storybook-player-name">Explorer</span> and Bolt picked the fallen beams back up.</p>
+
+            <!-- Challenge 4 Box -->
+            <div class="p-4 bg-cyan-50 border-2 border-cyan-300 rounded-2xl">
+              <p class="font-extrabold text-cyan-900 text-sm">🧩 Challenge 4: Quick Addition</p>
+              <p class="text-xs sm:text-sm text-cyan-800 mt-1">There were 3 fallen beams, and Buster found 2 more: <strong>3 + 2 = ?</strong></p>
+              <div class="flex gap-2 mt-2">
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, '3 plus 2 equals 5!')">4</button>
+                <button type="button" class="story-choice-btn bg-cyan-600 text-white font-black px-4 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, true, 'Buster barks proudly: &quot;<span class=&quot;storybook-player-name&quot;>Explorer</span>, good job! We set them right back up!&quot;')">Answer: 5 beams ✓</button>
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, '3 plus 2 equals 5!')">6</button>
+              </div>
+              <p class="story-feedback text-xs font-bold text-cyan-700 mt-2 italic">Buster barks proudly: "<span class="storybook-player-name">Explorer</span>, good job! We set them right back up!"</p>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-400 pt-3 border-t">
+            Quizoo Storybook Adventures • Buster & The Broken Clockwork Robot
+          </div>
+        </div>
+
+        <!-- SECTION 5: PAGES 21-25 (The Round Crystal & Challenge 5) -->
+        <div class="book-page page-break bg-white p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col justify-between min-h-[700px]">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-slate-400 border-b pb-3">
+              <span>CHAPTER 5</span>
+              <span>PAGES 21 - 25</span>
+            </div>
+            <h2 class="text-2xl font-black text-indigo-950 mt-4">The Round Lens Crystal</h2>
+          </div>
+
+          <!-- Section 5 Illustration -->
+          <div class="my-3 bg-slate-900 rounded-2xl p-4 flex justify-center">
+            <svg viewBox="0 0 360 110" class="w-full max-w-md">
+              <circle cx="180" cy="55" r="35" fill="#38BDF8" opacity="0.8" stroke="#F59E0B" stroke-width="4"/>
+              <circle cx="180" cy="55" r="12" fill="#FFFFFF"/>
+            </svg>
+          </div>
+
+          <div class="space-y-3 text-sm sm:text-base leading-relaxed text-slate-700">
+            <p><strong>Page 21:</strong> Instead of stopping, Bolt smiled, picked up the wrench, and kept working.</p>
+            <p><strong>Page 22:</strong> Piece by piece, the three friends put together the tall wooden ladder.</p>
+            <p><strong>Page 23:</strong> <span class="storybook-player-name">Explorer</span> climbed to the top of the tower, carrying the large glass lantern.</p>
+            <p><strong>Page 24:</strong> Bolt adjusted the cogs under the glass dome so the light could spin.</p>
+            <p><strong>Page 25:</strong> The lighthouse lens required a round crystal.</p>
+
+            <!-- Challenge 5 Box -->
+            <div class="p-4 bg-indigo-50 border-2 border-indigo-300 rounded-2xl">
+              <p class="font-extrabold text-indigo-900 text-sm">🧩 Challenge 5: Shape Matching</p>
+              <p class="text-xs sm:text-sm text-indigo-800 mt-1">Which shape is round with no straight sides or corners?</p>
+              <div class="flex gap-2 mt-2">
+                <button type="button" class="story-choice-btn bg-indigo-600 text-white font-black px-4 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, true, 'Buster does a victory spin: &quot;<span class=&quot;storybook-player-name&quot;>Explorer</span>, good job! The crystal fits perfectly!&quot;')">Answer: CIRCLE 🟢 ✓</button>
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, 'Circles are round!')">SQUARE ⏹️</button>
+                <button type="button" class="story-choice-btn bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs cursor-pointer" onclick="checkStoryAnswer(this, false, 'Circles are round!')">TRIANGLE 🔺</button>
+              </div>
+              <p class="story-feedback text-xs font-bold text-indigo-700 mt-2 italic">Buster does a victory spin: "<span class="storybook-player-name">Explorer</span>, good job! The crystal fits perfectly!"</p>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-400 pt-3 border-t">
+            Quizoo Storybook Adventures • Buster & The Broken Clockwork Robot
+          </div>
+        </div>
+
+        <!-- SECTION 6: PAGES 26-30 (Light Over Ocean & Victory) -->
+        <div class="book-page bg-white p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col justify-between min-h-[700px]">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-slate-400 border-b pb-3">
+              <span>CHAPTER 6</span>
+              <span>PAGES 26 - 30</span>
+            </div>
+            <h2 class="text-2xl font-black text-amber-950 mt-4">Shining Light Across the Sea</h2>
+          </div>
+
+          <!-- Section 6 Illustration -->
+          <div class="my-3 bg-slate-900 rounded-2xl p-4 flex justify-center">
+            <svg viewBox="0 0 360 110" class="w-full max-w-md">
+              <polygon points="180,30 360,0 360,110 180,70" fill="#FACC15" opacity="0.4"/>
+              <circle cx="180" cy="50" r="20" fill="#F59E0B"/>
+            </svg>
+          </div>
+
+          <div class="space-y-3 text-sm sm:text-base leading-relaxed text-slate-700">
+            <p><strong>Page 26:</strong> <span class="storybook-player-name">Explorer</span> locked the round crystal into the center of the spinning brass gears.</p>
+            <p><strong>Page 27:</strong> Bolt pulled the main power lever with both hands: Click-clack!</p>
+            <p><strong>Page 28:</strong> A brilliant beam of warm amber light shot out across the dark ocean waves.</p>
+            <p><strong>Page 29:</strong> A little fishing boat far out in the fog honked its horn three times in thanks.</p>
+            <p><strong>Page 30:</strong> Bolt looked up at the glowing tower and cheered, "We did not give up, and now the light is shining!"</p>
+
+            <blockquote class="p-4 bg-amber-50 border-l-4 border-amber-500 text-amber-950 font-bold rounded-r-lg text-sm">
+              "Bolt looked up at the glowing tower and cheered: 'We did not give up, and now the light is shining!'"
+            </blockquote>
+
+            <!-- Certificate Stamp -->
+            <div class="border-2 border-dashed border-amber-400 rounded-2xl p-3 text-center bg-amber-50">
+              <p class="text-xs font-black text-amber-800 uppercase tracking-wider">🏆 Master Builder Award</p>
+              <p class="text-[11px] text-amber-700">Completed by Explorer <span class="storybook-player-name">Explorer</span> & Buster • Reward: 💎 +50 Diamonds & The Master Builder Badge 🏆</p>
+            </div>
+          </div>
+
+          <div class="text-center text-xs text-slate-400 pt-3 border-t">
+            Quizoo Storybook Adventures • Buster & The Broken Clockwork Robot
+          </div>
+        </div>
+
+      </div>
+      <!-- END BOOK 3 -->
+
     </div>
   </div>
 
@@ -1265,28 +1568,21 @@
     window.switchStoryBook = function(bookNum) {
       const book1 = document.getElementById('book-content-1');
       const book2 = document.getElementById('book-content-2');
+      const book3 = document.getElementById('book-content-3');
       const tab1 = document.getElementById('tab-book1');
       const tab2 = document.getElementById('tab-book2');
+      const tab3 = document.getElementById('tab-book3');
 
-      if (bookNum === 1) {
-        if (book1) book1.classList.remove('hidden');
-        if (book2) book2.classList.add('hidden');
-        if (tab1) {
-          tab1.className = "story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-4 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5";
-        }
-        if (tab2) {
-          tab2.className = "story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5";
-        }
-      } else {
-        if (book1) book1.classList.add('hidden');
-        if (book2) book2.classList.remove('hidden');
-        if (tab2) {
-          tab2.className = "story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-4 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5";
-        }
-        if (tab1) {
-          tab1.className = "story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5";
-        }
-      }
+      const activeClass = "story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-3.5 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5";
+      const inactiveClass = "story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-3.5 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5";
+
+      if (book1) book1.classList.toggle('hidden', bookNum !== 1);
+      if (book2) book2.classList.toggle('hidden', bookNum !== 2);
+      if (book3) book3.classList.toggle('hidden', bookNum !== 3);
+
+      if (tab1) tab1.className = bookNum === 1 ? activeClass : inactiveClass;
+      if (tab2) tab2.className = bookNum === 2 ? activeClass : inactiveClass;
+      if (tab3) tab3.className = bookNum === 3 ? activeClass : inactiveClass;
     };
 
     window.checkStoryAnswer = function(btnEl, isCorrect, feedbackMsg) {
