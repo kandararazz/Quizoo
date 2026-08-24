@@ -357,7 +357,7 @@
     </main>
 
     <!-- Footer Branding -->
-    <footer class="text-center text-slate-400 text-xs font-medium py-1">
+    <footer class="text-center text-slate-400 text-[10px] sm:text-xs font-semibold py-1.5 tracking-wide opacity-80 select-none">
       Quizoo: Pet Puzzle Quest • Created by Raza ✨
     </footer>
 
@@ -659,14 +659,7 @@
           }
         }
 
-        // Voice Speech Synthesis Read Aloud
-        if (!isMuted && 'speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(message);
-          utterance.rate = 1.05;
-          utterance.pitch = 1.25;
-          window.speechSynthesis.speak(utterance);
-        }
+
       },
 
       onCorrect() {
