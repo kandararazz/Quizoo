@@ -279,7 +279,7 @@
         </button>
 
         <!-- Storybook Button -->
-        <button id="storybook-btn" title="Quizoo Storybook" class="open-storybook-btn bg-gradient-to-b from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-black text-xs sm:text-sm px-3 py-1.5 rounded-2xl shadow-[0_4px_0_#4c1d95] active:shadow-[0_2px_0_#4c1d95] active:translate-y-0.5 transition flex items-center gap-1.5 cursor-pointer">
+        <button id="storybook-btn" title="Quizoo Storybook" onclick="openStorybook()" class="open-storybook-btn bg-gradient-to-b from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-black text-xs sm:text-sm px-3 py-1.5 rounded-2xl shadow-[0_4px_0_#4c1d95] active:shadow-[0_2px_0_#4c1d95] active:translate-y-0.5 transition flex items-center gap-1.5 cursor-pointer">
           📖 <span class="hidden sm:inline">Storybook</span>
         </button>
 
@@ -609,7 +609,7 @@
         <button id="start-quest-btn" class="flex-1 bg-gradient-to-b from-emerald-500 to-emerald-700 hover:from-emerald-400 hover:to-emerald-600 text-white font-extrabold text-lg py-3 rounded-2xl shadow-[0_5px_0_#047857] active:translate-y-0.5 active:shadow-none transition cursor-pointer">
           Start Quest! 🚀
         </button>
-        <button type="button" class="open-storybook-btn bg-gradient-to-b from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-extrabold text-base py-3 px-5 rounded-2xl shadow-[0_5px_0_#4338ca] active:translate-y-0.5 active:shadow-none transition cursor-pointer flex items-center justify-center gap-2">
+        <button type="button" onclick="openStorybook()" class="open-storybook-btn bg-gradient-to-b from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-extrabold text-base py-3 px-5 rounded-2xl shadow-[0_5px_0_#4338ca] active:translate-y-0.5 active:shadow-none transition cursor-pointer flex items-center justify-center gap-2">
           📖 Read Storybook
         </button>
       </div>
@@ -744,7 +744,7 @@
   <div id="storybook-modal" class="hidden fixed inset-0 bg-slate-950/95 backdrop-blur-md z-[100] overflow-y-auto p-4 sm:p-6 flex flex-col items-center">
     <!-- PDF / Print Action Bar & Close Button -->
     <div class="no-print w-full max-w-2xl flex justify-between items-center my-3 gap-3">
-      <button id="close-storybook-btn" class="bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2.5 rounded-2xl text-sm transition cursor-pointer flex items-center gap-1.5 shadow">
+      <button id="close-storybook-btn" onclick="closeStorybook()" class="bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2.5 rounded-2xl text-sm transition cursor-pointer flex items-center gap-1.5 shadow">
         ✕ Close Storybook
       </button>
       <button onclick="window.print()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-6 py-2.5 rounded-2xl shadow-xl transition transform active:scale-95 flex items-center gap-2 text-sm cursor-pointer">
@@ -1230,8 +1230,78 @@
   <!-- Core Game Script -->
   <script>
     /* ==========================================================================
-       Quizoo: Pet Puzzle Quest - Core Game Logic
+       Quizoo: Pet Puzzle Quest - Core Game Logic & Global Storybook Controller
        ========================================================================== */
+
+    // GLOBAL STORYBOOK CONTROLLER (Available immediately on page parse)
+    window.openStorybook = function() {
+      const modal = document.getElementById('storybook-modal');
+      if (!modal) return;
+      
+      const curName = localStorage.getItem('quizoo_player_name') || 'Raza';
+      const petId = localStorage.getItem('quizoo_pet_id') || 'fox';
+      const petDict = { fox: 'Rusty', dragon: 'Sparky', cat: 'Luna', dog: 'Buster' };
+      const petShortName = petDict[petId] || 'Luna';
+
+      const nameElements = document.querySelectorAll('.storybook-player-name');
+      nameElements.forEach(el => el.textContent = curName);
+      
+      const heroNamesEl = document.getElementById('storybook-hero-names');
+      if (heroNamesEl) heroNamesEl.textContent = `${curName} & ${petShortName}`;
+      
+      modal.style.zIndex = '99999';
+      modal.classList.remove('hidden');
+      modal.style.display = 'flex';
+    };
+
+    window.closeStorybook = function() {
+      const modal = document.getElementById('storybook-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    };
+
+    window.switchStoryBook = function(bookNum) {
+      const book1 = document.getElementById('book-content-1');
+      const book2 = document.getElementById('book-content-2');
+      const tab1 = document.getElementById('tab-book1');
+      const tab2 = document.getElementById('tab-book2');
+
+      if (bookNum === 1) {
+        if (book1) book1.classList.remove('hidden');
+        if (book2) book2.classList.add('hidden');
+        if (tab1) {
+          tab1.className = "story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-4 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5";
+        }
+        if (tab2) {
+          tab2.className = "story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5";
+        }
+      } else {
+        if (book1) book1.classList.add('hidden');
+        if (book2) book2.classList.remove('hidden');
+        if (tab2) {
+          tab2.className = "story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-4 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5";
+        }
+        if (tab1) {
+          tab1.className = "story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5";
+        }
+      }
+    };
+
+    window.checkStoryAnswer = function(btnEl, isCorrect, feedbackMsg) {
+      const container = btnEl.closest('.p-4');
+      if (!container) return;
+      const feedbackEl = container.querySelector('.story-feedback');
+      if (feedbackEl) {
+        const curName = localStorage.getItem('quizoo_player_name') || 'Raza';
+        feedbackEl.innerHTML = feedbackMsg.replace(/<span class="storybook-player-name">.*?<\/span>/g, curName);
+        feedbackEl.classList.remove('hidden');
+      }
+      if (isCorrect && typeof confetti === 'function') {
+        confetti({ particleCount: 60, spread: 70 });
+      }
+    };
 
     // 100 MATH QUIZ PUZZLES
     const mathPuzzles100 = [
@@ -1847,72 +1917,6 @@
           if (leaderboardModal) leaderboardModal.classList.add('hidden');
         };
       }
-
-      // Storybook Modal Handlers
-      const storybookModal = document.getElementById('storybook-modal');
-      const closeStorybookBtn = document.getElementById('close-storybook-btn');
-
-      window.switchStoryBook = function(bookNum) {
-        const book1 = document.getElementById('book-content-1');
-        const book2 = document.getElementById('book-content-2');
-        const tab1 = document.getElementById('tab-book1');
-        const tab2 = document.getElementById('tab-book2');
-
-        if (bookNum === 1) {
-          if (book1) book1.classList.remove('hidden');
-          if (book2) book2.classList.add('hidden');
-          if (tab1) {
-            tab1.className = "story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-4 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5";
-          }
-          if (tab2) {
-            tab2.className = "story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5";
-          }
-        } else {
-          if (book1) book1.classList.add('hidden');
-          if (book2) book2.classList.remove('hidden');
-          if (tab2) {
-            tab2.className = "story-tab-btn active-tab bg-gradient-to-r from-amber-400 to-amber-500 text-amber-950 font-black px-4 py-2 rounded-2xl text-xs sm:text-sm shadow transition cursor-pointer flex items-center gap-1.5";
-          }
-          if (tab1) {
-            tab1.className = "story-tab-btn bg-white/20 hover:bg-white/30 text-white font-extrabold px-4 py-2 rounded-2xl text-xs sm:text-sm transition cursor-pointer flex items-center gap-1.5";
-          }
-        }
-      };
-
-      window.checkStoryAnswer = function(btnEl, isCorrect, feedbackMsg) {
-        const container = btnEl.closest('.p-4');
-        if (!container) return;
-        const feedbackEl = container.querySelector('.story-feedback');
-        if (feedbackEl) {
-          const curName = localStorage.getItem('quizoo_player_name') || 'Raza';
-          feedbackEl.innerHTML = feedbackMsg.replace(/<span class="storybook-player-name">.*?<\/span>/g, curName);
-          feedbackEl.classList.remove('hidden');
-        }
-        if (isCorrect && typeof confetti === 'function') {
-          confetti({ particleCount: 60, spread: 70 });
-        }
-      };
-
-      function openStorybook() {
-        if (!storybookModal) return;
-        const nameElements = document.querySelectorAll('.storybook-player-name');
-        nameElements.forEach(el => el.textContent = playerName || 'Raza');
-        const heroNamesEl = document.getElementById('storybook-hero-names');
-        const petShortName = activePet && activePet.name ? activePet.name.split(' ')[0] : 'Luna';
-        if (heroNamesEl) heroNamesEl.textContent = `${playerName || 'Raza'} & ${petShortName}`;
-        storybookModal.style.zIndex = '9999';
-        storybookModal.classList.remove('hidden');
-      }
-
-      document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.open-storybook-btn');
-        if (btn) {
-          e.preventDefault();
-          openStorybook();
-        }
-      });
-
-      if (closeStorybookBtn) closeStorybookBtn.onclick = () => storybookModal.classList.add('hidden');
 
       // Background Hub Theme Manager
       let selectedTheme = localStorage.getItem('quizoo_background_theme') || 'purple';
